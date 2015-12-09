@@ -118,8 +118,6 @@
     <Compile Include="Helpers\DataGenerator.cs" />
     <Compile Include="Helpers\MockHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\HomeControllerTest.cs" />
-    <Compile Include="Controllers\ValuesControllerTest.cs" />
     <Compile Include="Repositories\PostRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +139,9 @@
       <Project>{D6A3FDF5-640A-4309-B2A2-CFBF763C5CA7}</Project>
       <Name>DevMikroblog.WebApp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
