@@ -7,7 +7,7 @@ namespace DevMikroblog.Domain.Repositories.Interface
 {
     public interface IRepository<TEntity>
     {
-        Result<T> Query<T>(Expression<Func<IQueryable<TEntity>, Result<T>>> func);
-        int SaveChanges { get; }
+        T Query<T>(Expression<Func<IQueryable<TEntity>,T>> func);
+        int SaveChanges();
     }
 }

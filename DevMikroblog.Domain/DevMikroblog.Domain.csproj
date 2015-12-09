@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseContext\Implementation\ApplicationDbContext.cs" />
+    <Compile Include="Repositories\Implementation\BaseRepository.cs" />
     <Compile Include="DatabaseContext\Interface\IDbContext.cs" />
     <Compile Include="Model\ApplicationUser.cs" />
     <Compile Include="Model\Comment.cs" />
@@ -67,11 +68,13 @@
     <Compile Include="Model\UserVote.cs" />
     <Compile Include="Model\Vote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Implementation\PostRepository.cs" />
+    <Compile Include="Repositories\Interface\ICrudable.cs" />
+    <Compile Include="Repositories\Interface\IPostRepository.cs" />
     <Compile Include="Repositories\Interface\IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\" />
-    <Folder Include="Repositories\Implementation\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
