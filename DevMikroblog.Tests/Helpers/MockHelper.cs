@@ -24,17 +24,19 @@ namespace DevMikroblog.Tests.Helpers
         public Mock<IDbContext> GetMockContext()
         {
             var result = new Mock<IDbContext>();
-            result.Setup(x => x.Posts).Returns(GetMockDbSet(_generator.Posts.AsQueryable()).Object);
+            result.Setup(x => x.Posts).Returns(GetMockDbSet(_generator.Posts).Object);
+            result.Setup(x => x.SaveChanges()).Verifiable();
             return result;
         }
 
-        private Mock<DbSet<T>> GetMockDbSet<T>(IQueryable<T> entityCollection) where T : class
+        private Mock<DbSet<T>> GetMockDbSet<T>(List<T> entityCollection) where T : class
         {
             var result = new Mock<DbSet<T>>();
-            result.As<IQueryable<T>>().Setup(x => x.Provider).Returns(entityCollection.Provider);
-            result.As<IQueryable<T>>().Setup(m => m.Expression).Returns(entityCollection.Expression);
-            result.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(entityCollection.ElementType);
-            result.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(entityCollection.GetEnumerator());
+            result.As<IQueryable<T>>().Setup(x => x.Provider).Returns(entityCollection.AsQueryable().Provider);
+            result.As<IQueryable<T>>().Setup(m => m.Expression).Returns(entityCollection.AsQueryable().Expression);
+            result.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(entityCollection.AsQueryable().ElementType);
+            result.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(entityCollection.AsQueryable().GetEnumerator());
+            result.Setup(m => m.Add(It.IsAny<T>())).Verifiable();
             return result;
         }
     }

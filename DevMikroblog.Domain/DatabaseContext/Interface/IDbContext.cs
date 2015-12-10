@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Runtime.CompilerServices;
 using DevMikroblog.Domain.Model;
 
 namespace DevMikroblog.Domain.DatabaseContext.Interface

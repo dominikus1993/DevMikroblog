@@ -10,7 +10,7 @@ using DevMikroblog.Domain.Repositories.Interface;
 
 namespace DevMikroblog.Domain.Repositories.Implementation
 {
-    public class PostRepository:BaseRepository<Post>,IPostRepository
+    public class PostRepository : BaseRepository<Post>, IPostRepository
     {
         public PostRepository(IDbContext context) : base(context)
         {
@@ -18,14 +18,15 @@ namespace DevMikroblog.Domain.Repositories.Implementation
 
         public override T Query<T>(Expression<Func<IQueryable<Post>, T>> func)
         {
-            throw new NotImplementedException();
+            var resFunc = func.Compile();
+            return resFunc(Context.Posts);
         }
 
         public IQueryable<Post> Posts => Context.Posts;
 
         public Post Create(Post entity)
         {
-            throw new NotImplementedException();
+            return Context.Posts.Add(entity);
         }
 
         public Post Read(long id)
@@ -35,7 +36,15 @@ namespace DevMikroblog.Domain.Repositories.Implementation
 
         public bool Update(Post entity)
         {
-            throw new NotImplementedException();
+            var post = Context.Posts.SingleOrDefault(x => x.Id == entity.Id);
+
+            if (post != null)
+            {
+                post.Message = entity.Message;
+                post.Title = entity.Title;
+                return true;
+            }
+            return false;
         }
 
         public bool Delete(long id)
