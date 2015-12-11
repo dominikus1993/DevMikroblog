@@ -69,9 +69,11 @@
     <Compile Include="Model\Vote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implementation\PostRepository.cs" />
+    <Compile Include="Repositories\Implementation\TagRepository.cs" />
     <Compile Include="Repositories\Interface\ICrudable.cs" />
     <Compile Include="Repositories\Interface\IPostRepository.cs" />
     <Compile Include="Repositories\Interface\IRepository.cs" />
+    <Compile Include="Repositories\Interface\ITagRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\" />

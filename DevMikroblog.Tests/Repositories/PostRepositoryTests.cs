@@ -83,5 +83,21 @@ namespace DevMikroblog.Tests.Repositories
             Assert.IsNotNull(result);
             Assert.AreEqual(expectedId, result.Id);
         }
+
+        [Test]
+        public void DeletePostByValidId()
+        {
+            const int expectedId = 6;
+            bool result = _postRepository.Delete(expectedId);
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void DeletePostByInValidId()
+        {
+            const int expectedId = int.MaxValue;
+            bool result = _postRepository.Delete(expectedId);
+            Assert.IsFalse(result);
+        }
     }
 }

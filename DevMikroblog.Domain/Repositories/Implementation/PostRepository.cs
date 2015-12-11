@@ -49,7 +49,15 @@ namespace DevMikroblog.Domain.Repositories.Implementation
 
         public bool Delete(long id)
         {
-            throw new NotImplementedException();
+            var postToRemoving = Context.Posts.SingleOrDefault(post => post.Id == id);
+
+            if (postToRemoving != null)
+            {
+                Context.Posts.Remove(postToRemoving);
+                return true;
+            }
+
+            return false;
         }
     }
 }
