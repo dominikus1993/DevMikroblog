@@ -119,6 +119,7 @@
     <Compile Include="Helpers\MockHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\PostRepositoryTests.cs" />
+    <Compile Include="Repositories\TagRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

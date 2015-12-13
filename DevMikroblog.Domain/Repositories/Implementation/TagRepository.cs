@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using DevMikroblog.Domain.DatabaseContext.Interface;
@@ -9,6 +11,7 @@ using DevMikroblog.Domain.Model;
 using DevMikroblog.Domain.Repositories.Interface;
 
 namespace DevMikroblog.Domain.Repositories.Implementation
+
 {
     public class TagRepository:BaseRepository<Tag>, ITagRepository
     {
@@ -16,9 +19,25 @@ namespace DevMikroblog.Domain.Repositories.Implementation
         {
         }
 
-        public Tag CreateOrModify(string tagName, Post post)
+        public IQueryable<Tag> Tags => Context.Tags;
+
+
+        public Tag Create(Tag tag)
         {
-            throw new NotImplementedException();
+            return Context.Tags.Add(tag);
+        }
+
+        public bool Update(Tag tag)
+        {
+            var tagToEdit = Context.Tags.SingleOrDefault(x => x.Id == tag.Id);
+
+            if (tagToEdit != null)
+            {
+                tagToEdit.Name = tag.Name;
+                tagToEdit.Posts = tag.Posts;
+                return true;
+            }
+            return false;
         }
 
         public Tag Delete(string tagName)
@@ -28,17 +47,19 @@ namespace DevMikroblog.Domain.Repositories.Implementation
 
         public Tag Find(string tagName)
         {
-            throw new NotImplementedException();
+            return Context.Tags.SingleOrDefault(x => x.Name == tagName);
         }
 
         public List<Post> GetPostsByTagName(string tagName)
         {
-            throw new NotImplementedException();
+            return Context.Tags.Include(x => x.Posts).SingleOrDefault(x => x.Name == tagName)?.Posts.ToList();
         }
+
 
         public override T Query<T>(Expression<Func<IQueryable<Tag>, T>> func)
         {
-            throw new NotImplementedException();
+            var resultFunc = func.Compile();
+            return resultFunc(Context.Tags);
         }
     }
 }

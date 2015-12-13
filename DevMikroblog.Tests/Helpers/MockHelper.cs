@@ -25,6 +25,7 @@ namespace DevMikroblog.Tests.Helpers
         {
             var result = new Mock<IDbContext>();
             result.Setup(x => x.Posts).Returns(GetMockDbSet(_generator.Posts).Object);
+            result.Setup(x => x.Tags).Returns(GetMockDbSet(_generator.Tags).Object);
             result.Setup(x => x.SaveChanges()).Verifiable();
             return result;
         }
@@ -37,6 +38,7 @@ namespace DevMikroblog.Tests.Helpers
             result.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(entityCollection.AsQueryable().ElementType);
             result.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(entityCollection.AsQueryable().GetEnumerator());
             result.Setup(m => m.Add(It.IsAny<T>())).Verifiable();
+            result.Setup(x => x.Include(It.IsAny<string>())).Returns(result.Object);
             return result;
         }
     }
