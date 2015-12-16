@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DevMikroblog.Domain.DatabaseContext.Interface;
+using DevMikroblog.Domain.Model;
+using DevMikroblog.Domain.Repositories.Interface;
 using Moq;
 
 namespace DevMikroblog.Tests.Helpers
@@ -14,18 +16,22 @@ namespace DevMikroblog.Tests.Helpers
 
         public static MockHelper Get() => new MockHelper();
 
-        private readonly DataGenerator _generator;
+        private static readonly DataGenerator Generator;
+
+        static MockHelper()
+        {
+            Generator = DataGenerator.Get();
+        }
 
         public MockHelper()
         {
-            _generator = DataGenerator.Get();
         }
 
         public Mock<IDbContext> GetMockContext()
         {
             var result = new Mock<IDbContext>();
-            result.Setup(x => x.Posts).Returns(GetMockDbSet(_generator.Posts).Object);
-            result.Setup(x => x.Tags).Returns(GetMockDbSet(_generator.Tags).Object);
+            result.Setup(x => x.Posts).Returns(GetMockDbSet(Generator.Posts).Object);
+            result.Setup(x => x.Tags).Returns(GetMockDbSet(Generator.Tags).Object);
             result.Setup(x => x.SaveChanges()).Verifiable();
             return result;
         }
@@ -39,6 +45,15 @@ namespace DevMikroblog.Tests.Helpers
             result.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(entityCollection.AsQueryable().GetEnumerator());
             result.Setup(m => m.Add(It.IsAny<T>())).Verifiable();
             result.Setup(x => x.Include(It.IsAny<string>())).Returns(result.Object);
+            return result;
+        }
+
+        public static Mock<IPostRepository> MockPostRepository()
+        {
+            var result = new Mock<IPostRepository>();
+            result.Setup(x => x.Posts).Returns(Generator.Posts.AsQueryable());
+            result.Setup(x => x.Read(1)).Returns(Generator.Posts.First());// valid id
+            result.Setup(x => x.Read(2)).Returns((Post)null);// invalid id
             return result;
         }
     }

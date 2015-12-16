@@ -20,16 +20,8 @@ namespace DevMikroblog.Tests.Services
         public void Init()
         {
             _data = DataGenerator.Get();
-            _repositoryMock = new Mock<IPostRepository>();
-            MockRepository();
+            _repositoryMock = MockHelper.MockPostRepository();
             _service = new PostService(_repositoryMock.Object);
-        }
-
-        public void MockRepository()
-        {
-            _repositoryMock.Setup(x => x.Posts).Returns(_data.Posts.AsQueryable());
-            _repositoryMock.Setup(x => x.Read(1)).Returns(_data.Posts.First());// valid id
-            _repositoryMock.Setup(x => x.Read(2)).Returns((Post)null);// invalid id
         }
 
         [Test]
