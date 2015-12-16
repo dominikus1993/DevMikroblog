@@ -16,10 +16,9 @@ namespace DevMikroblog.Domain.Repositories.Implementation
         {
         }
 
-        public override T Query<T>(Expression<Func<IQueryable<Post>, T>> func)
+        public override T Query<T>(Func<IQueryable<Post>, T> func)
         {
-            var resFunc = func.Compile();
-            return resFunc(Context.Posts);
+            return func(Context.Posts);
         }
 
         public IQueryable<Post> Posts => Context.Posts;

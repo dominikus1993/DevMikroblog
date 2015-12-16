@@ -16,7 +16,7 @@ namespace DevMikroblog.Domain.Repositories.Implementation
             Context = context;
         }
 
-        public abstract T Query<T>(Expression<Func<IQueryable<TEntity>, T>> func);
+        public abstract T Query<T>(Func<IQueryable<TEntity>, T> func);
 
         public int SaveChanges()
         {

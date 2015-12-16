@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using DevMikroblog.Domain.DatabaseContext.Interface;
 using DevMikroblog.Domain.Model;
 using DevMikroblog.Domain.Repositories.Interface;
@@ -56,10 +52,9 @@ namespace DevMikroblog.Domain.Repositories.Implementation
         }
 
 
-        public override T Query<T>(Expression<Func<IQueryable<Tag>, T>> func)
+        public override T Query<T>(Func<IQueryable<Tag>, T> func)
         {
-            var resultFunc = func.Compile();
-            return resultFunc(Context.Tags);
+            return func(Context.Tags);
         }
     }
 }

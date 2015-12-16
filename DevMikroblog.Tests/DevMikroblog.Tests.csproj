@@ -120,6 +120,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\PostRepositoryTests.cs" />
     <Compile Include="Repositories\TagRepositoryTests.cs" />
+    <Compile Include="Services\PostServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
