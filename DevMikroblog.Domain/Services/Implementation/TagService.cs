@@ -41,7 +41,6 @@ namespace DevMikroblog.Domain.Services.Implementation
             {
                 if (_tagRepository.Exist(tag.Name))
                 {
-                    tag.Posts = _tagRepository.Find(tag.Name).Posts;
                     _tagRepository.Update(tag);
                     return tag;
                 }

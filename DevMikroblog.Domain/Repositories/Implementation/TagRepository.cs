@@ -30,7 +30,10 @@ namespace DevMikroblog.Domain.Repositories.Implementation
             if (tagToEdit != null)
             {
                 tagToEdit.Name = tag.Name;
-                tagToEdit.Posts = tag.Posts;
+                foreach (var post in tag.Posts)
+                {
+                    tagToEdit.Posts.Add(post);
+                }
                 return true;
             }
             return false;
