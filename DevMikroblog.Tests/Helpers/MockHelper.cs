@@ -54,6 +54,20 @@ namespace DevMikroblog.Tests.Helpers
             result.Setup(x => x.Posts).Returns(Generator.Posts.AsQueryable());
             result.Setup(x => x.Read(1)).Returns(Generator.Posts.First());// valid id
             result.Setup(x => x.Read(2)).Returns((Post)null);// invalid id
+            result.Setup(x => x.Update(It.IsAny<Post>())).Returns(true);
+            result.Setup(x => x.Create(It.IsAny<Post>())).Returns(Generator.Posts.First());
+            return result;
+        }
+
+        public static Mock<ITagRepository> MockTagRepository()
+        {
+            var result = new Mock<ITagRepository>();
+            result.Setup(x => x.Create(It.IsAny<Tag>())).Returns(Generator.Tags.First());
+            result.Setup(x => x.Update(It.IsAny<Tag>())).Returns(true);
+            result.Setup(x => x.Exist(It.IsAny<string>()))
+                .Returns<string>(x => Generator.Tags.SingleOrDefault(tag => tag.Name == x) != null);
+            result.Setup(x => x.Find(It.IsAny<string>()))
+                .Returns<string>(x => Generator.Tags.SingleOrDefault(tag => tag.Name == x));
             return result;
         }
     }

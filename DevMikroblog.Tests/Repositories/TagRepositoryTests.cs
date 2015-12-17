@@ -99,5 +99,13 @@ namespace DevMikroblog.Tests.Repositories
             bool result = _tagRepository.Update(tag);
             Assert.IsFalse(result);
         }
+
+        [Test]
+        public void Exist()
+        {
+            const string tagName = "csharp";
+            bool result = _tagRepository.Exist(tagName);
+            Assert.IsTrue(result);
+        }
     }
 }

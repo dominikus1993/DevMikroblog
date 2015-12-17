@@ -7,11 +7,9 @@ using DevMikroblog.Domain.Model;
 
 namespace DevMikroblog.Domain.Services.Interface
 {
-    public interface IPostService:IService<Post>
+    public interface ITagService
     {
-        Result<IQueryable<Post>> Posts { get; }
-        Result<Post> Read(long id);
-        Result<bool> Update(Post post);
-        Result<Post> Create(Post post);
+        Result<List<Tag>> ParseTags(string text);
+        Result<List<Tag>> CreateOrUpdateTags(List<Tag> tags);
     }
 }

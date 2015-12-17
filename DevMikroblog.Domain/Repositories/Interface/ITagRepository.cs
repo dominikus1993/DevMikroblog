@@ -11,6 +11,7 @@ namespace DevMikroblog.Domain.Repositories.Interface
         bool Update(Tag tag);
         Tag Delete(string tagName);
         Tag Find(string tagName);
-        List<Post> GetPostsByTagName(string tagName); 
+        List<Post> GetPostsByTagName(string tagName);
+        bool Exist(string tagName);
     }
 }

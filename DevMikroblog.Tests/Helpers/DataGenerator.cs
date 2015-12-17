@@ -67,8 +67,17 @@ namespace DevMikroblog.Tests.Helpers
                  {
                      Id = 2,
                      Name = "csharp",
+                 },
+                 new Tag()
+                 {
+                     Id = 3,
+                     Name = "programowanie",
+                 },
+                 new Tag()
+                 {
+                     Id = 4,
+                     Name = "heheszki",
                  }
-
              };
         }
 

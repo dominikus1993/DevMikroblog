@@ -50,5 +50,39 @@ namespace DevMikroblog.Tests.Services
             var result = _service.Read(id);
             Assert.IsFalse(result.IsSuccess);
         }
+
+        [Test]
+        public void Update()
+        {
+            var post = new Post()
+            {
+                Id = 1,
+                Message = "Pozdro",
+                Title = "Pozdro",
+                AuthorId = "d1u2p3a",
+                Author = _data.Users[0]
+            };
+
+            var result = _service.Update(post);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsTrue(result.Value);
+        }
+
+        [Test]
+        public void Create()
+        {
+            var post = new Post()
+            {
+                Id = 22,
+                Message = "Pozdro",
+                Title = "Pozdro",
+                AuthorId = "d1u2p3a",
+                Author = _data.Users[0]
+            };
+
+            var result = _service.Create(post);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsNotNull(result.Value);
+        }
     }
 }

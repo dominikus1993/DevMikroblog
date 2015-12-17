@@ -51,6 +51,12 @@ namespace DevMikroblog.Domain.Repositories.Implementation
             return Context.Tags.Include(x => x.Posts).SingleOrDefault(x => x.Name == tagName)?.Posts.ToList();
         }
 
+        public bool Exist(string tagName)
+        {
+            var result = Context.Tags.SingleOrDefault(x => x.Name == tagName);
+            return result != null;
+        }
+
 
         public override T Query<T>(Func<IQueryable<Tag>, T> func)
         {

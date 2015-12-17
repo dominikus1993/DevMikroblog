@@ -122,6 +122,7 @@
     <Compile Include="Repositories\PostRepositoryTests.cs" />
     <Compile Include="Repositories\TagRepositoryTests.cs" />
     <Compile Include="Services\PostServiceTests.cs" />
+    <Compile Include="Services\TagServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
