@@ -33,6 +33,7 @@ namespace DevMikroblog.Tests.Helpers
             var result = new Mock<IDbContext>();
             result.Setup(x => x.Posts).Returns(GetMockDbSet(Generator.Posts).Object);
             result.Setup(x => x.Tags).Returns(GetMockDbSet(Generator.Tags).Object);
+            result.Setup(x => x.Votes).Returns(GetMockDbSet(Generator.Votes).Object);
             result.Setup(x => x.SaveChanges()).Verifiable();
             return result;
         }

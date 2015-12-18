@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using DevMikroblog.Domain.DatabaseContext.Interface;
@@ -57,6 +58,22 @@ namespace DevMikroblog.Domain.Repositories.Implementation
             }
 
             return false;
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public Post Vote(Post entity, Vote vote, Func<long, long> downOrUpFunc)
+        {
+            var query = Context.Posts.SingleOrDefault(post => post.Id == entity.Id);
+
+            if (query != null)
+            {
+                query.Votes.Add(vote);
+                query.Rate = downOrUpFunc(entity.Rate);
+                Context.Votes.Add(vote);
+                return query;
+            }
+
+            return null;
         }
     }
 }

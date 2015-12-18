@@ -74,6 +74,7 @@
     <Compile Include="Repositories\Interface\IPostRepository.cs" />
     <Compile Include="Repositories\Interface\IRepository.cs" />
     <Compile Include="Repositories\Interface\ITagRepository.cs" />
+    <Compile Include="Repositories\Interface\IVotable.cs" />
     <Compile Include="Services\Implementation\BaseService.cs" />
     <Compile Include="Services\Implementation\PostService.cs" />
     <Compile Include="Services\Implementation\TagService.cs" />

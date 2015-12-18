@@ -7,7 +7,7 @@ using DevMikroblog.Domain.Model;
 
 namespace DevMikroblog.Domain.Repositories.Interface
 {
-    public interface IPostRepository : IRepository<Post>, ICrudable<Post, long>
+    public interface IPostRepository : IRepository<Post>, ICrudable<Post, long>, IVotable<Post>
     {
         IQueryable<Post> Posts { get; }
     }

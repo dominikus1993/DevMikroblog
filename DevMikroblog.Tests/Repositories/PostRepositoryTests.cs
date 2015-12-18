@@ -99,5 +99,73 @@ namespace DevMikroblog.Tests.Repositories
             bool result = _postRepository.Delete(expectedId);
             Assert.IsFalse(result);
         }
+
+        [Test]
+        public void ValidVoteUp()
+        {
+            var postToVoteUp = _data.Posts.First();
+            var vote = new Vote()
+            {
+                Post = postToVoteUp,
+                PostId = postToVoteUp.Id,
+                UserVote = UserVote.VoteUp
+            };
+            long votesBefore = postToVoteUp.Rate;
+            var result = _postRepository.Vote(postToVoteUp, vote, rate => rate + 1);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.Rate, votesBefore + 1);
+        }
+
+        [Test]
+        public void InValidVoteUp()
+        {
+            var postToVoteUp = new Post()
+            {
+                Id = 111111
+            };
+            var vote = new Vote()
+            {
+                Post = postToVoteUp,
+                PostId = postToVoteUp.Id,
+                UserVote = UserVote.VoteUp
+            };
+
+            var result = _postRepository.Vote(postToVoteUp, vote, rate => rate + 1);
+            Assert.IsNull(result);
+        }
+
+        [Test]
+        public void ValidVoteDown()
+        {
+            var postToVoteUp = _data.Posts.First();
+            var vote = new Vote()
+            {
+                Post = postToVoteUp,
+                PostId = postToVoteUp.Id,
+                UserVote = UserVote.VoteDown
+            };
+            long votesBefore = postToVoteUp.Rate;
+            var result = _postRepository.Vote(postToVoteUp, vote, rate => rate - 1);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.Rate, votesBefore - 1);
+        }
+
+        [Test]
+        public void InValidVoteDown()
+        {
+            var postToVoteUp = new Post()
+            {
+                Id = 111111
+            };
+            var vote = new Vote()
+            {
+                Post = postToVoteUp,
+                PostId = postToVoteUp.Id,
+                UserVote = UserVote.VoteDown
+            };
+
+            var result = _postRepository.Vote(postToVoteUp, vote, rate => rate - 1);
+            Assert.IsNull(result);
+        }
     }
 }
