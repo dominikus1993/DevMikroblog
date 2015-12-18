@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using DevMikroblog.Domain.Model;
@@ -23,7 +24,7 @@ namespace DevMikroblog.Domain.Services.Implementation
             return Result<T>.WarningWhenNoData(_postRepository.Query(compiledFunc));
         }
 
-        public Result<IQueryable<Post>> Posts => Result<IQueryable<Post>>.WarningWhenNoData(_postRepository.Posts);
+        public Result<List<Post>> Posts => Result<List<Post>>.WarningWhenNoData(_postRepository.Posts?.ToList());
 
         public Result<Post> Read(long id)
         {

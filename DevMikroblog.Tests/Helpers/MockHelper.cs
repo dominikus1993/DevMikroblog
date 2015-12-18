@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DevMikroblog.Domain.DatabaseContext.Interface;
 using DevMikroblog.Domain.Model;
 using DevMikroblog.Domain.Repositories.Interface;
+using DevMikroblog.Domain.Services.Interface;
 using Moq;
 
 namespace DevMikroblog.Tests.Helpers
@@ -70,6 +71,19 @@ namespace DevMikroblog.Tests.Helpers
                 .Returns<string>(x => Generator.Tags.SingleOrDefault(tag => tag.Name == x));
             result.Setup(x => x.GetPostsByTagName(It.IsAny<string>()))
                 .Returns<string>(x => Generator.Tags.SingleOrDefault(tag => tag.Name == x)?.Posts.ToList());
+            return result;
+        }
+
+        public static Mock<IPostService> MockPostService()
+        {
+            var result = new Mock<IPostService>();
+            result.Setup(x => x.Posts).Returns(Result<List<Post>>.WarningWhenNoData(Generator.Posts));
+            return result;
+        }
+
+        public static Mock<ITagService> MockTagService()
+        {
+            var result = new Mock<ITagService>();
             return result;
         }
     }

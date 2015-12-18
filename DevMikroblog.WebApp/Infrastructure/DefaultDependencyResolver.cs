@@ -20,8 +20,8 @@ namespace DevMikroblog.WebApp.Infrastructure
 
         public DefaultDependencyResolver()
         {
-            _kernel = new StandardKernel();
-            AddBindings();
+            _kernel = AddBindings();
+
         }
 
         protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
@@ -29,11 +29,15 @@ namespace DevMikroblog.WebApp.Infrastructure
             return (IController)(controllerType == null ? null : _kernel.Get(controllerType));
         }
 
-        private void AddBindings()
+        private IKernel AddBindings()
         {
-            _kernel.Bind<IDbContext>().To<ApplicationDbContext>();
-            _kernel.Bind<IPostRepository>().To<PostRepository>();
-            _kernel.Bind<IPostService>().To<PostService>();
+            var kernel = new StandardKernel();
+            kernel.Bind<IDbContext>().To<ApplicationDbContext>();
+            kernel.Bind<IPostRepository>().To<PostRepository>();
+            kernel.Bind<IPostService>().To<PostService>();
+            kernel.Bind<ITagRepository>().To<TagRepository>();
+            kernel.Bind<ITagService>().To<TagService>();
+            return kernel;
         }
     }
 }
