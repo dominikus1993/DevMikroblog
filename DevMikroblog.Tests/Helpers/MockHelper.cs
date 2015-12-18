@@ -68,6 +68,8 @@ namespace DevMikroblog.Tests.Helpers
                 .Returns<string>(x => Generator.Tags.SingleOrDefault(tag => tag.Name == x) != null);
             result.Setup(x => x.Find(It.IsAny<string>()))
                 .Returns<string>(x => Generator.Tags.SingleOrDefault(tag => tag.Name == x));
+            result.Setup(x => x.GetPostsByTagName(It.IsAny<string>()))
+                .Returns<string>(x => Generator.Tags.SingleOrDefault(tag => tag.Name == x)?.Posts.ToList());
             return result;
         }
     }

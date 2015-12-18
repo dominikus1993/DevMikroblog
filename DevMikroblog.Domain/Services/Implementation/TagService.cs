@@ -15,7 +15,7 @@ namespace DevMikroblog.Domain.Services.Implementation
     public class TagService:BaseService<Tag>, ITagService
     {
 
-        private ITagRepository _tagRepository;
+        private readonly ITagRepository _tagRepository;
 
         public TagService(ITagRepository tagRepository)
         {
@@ -25,7 +25,8 @@ namespace DevMikroblog.Domain.Services.Implementation
 
         public override Result<T> Query<T>(Expression<Func<IQueryable<Tag>, T>> func)
         {
-            throw new NotImplementedException();
+            var queryFunc = func.Compile();
+            return Result<T>.WarningWhenNoData(_tagRepository.Query(queryFunc));
         }
 
         public Result<List<Tag>> ParseTags(string text)
@@ -52,5 +53,10 @@ namespace DevMikroblog.Domain.Services.Implementation
             return Result<List<Tag>>.WarningWhenNoData(result);        
         }
 
+        public Result<List<Post>> GetPostByTagName(string tagName)
+        {
+            var queryResult = _tagRepository.GetPostsByTagName(tagName);
+            return Result<List<Post>>.WarningWhenNoData(queryResult);
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace DevMikroblog.Domain.Services.Implementation
         public override Result<T> Query<T>(Expression<Func<IQueryable<Post>, T>> func)
         {
             var compiledFunc = func.Compile();
-            return Result<T>.WarningWhenNoData(compiledFunc(_postRepository.Posts));
+            return Result<T>.WarningWhenNoData(_postRepository.Query(compiledFunc));
         }
 
         public Result<IQueryable<Post>> Posts => Result<IQueryable<Post>>.WarningWhenNoData(_postRepository.Posts);
@@ -42,6 +42,11 @@ namespace DevMikroblog.Domain.Services.Implementation
             var queryResult = _postRepository.Create(post);
             return Result<Post>.WarningWhenNoData(queryResult);
         }
- 
+
+        public Result<bool> Delete(long id)
+        {
+            bool queryResult = _postRepository.Delete(id);
+            return Result<bool>.WarningWhenNoData(queryResult);
+        }
     }
 }

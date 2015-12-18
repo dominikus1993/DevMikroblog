@@ -11,5 +11,6 @@ namespace DevMikroblog.Domain.Services.Interface
     {
         Result<List<Tag>> ParseTags(string text);
         Result<List<Tag>> CreateOrUpdateTags(List<Tag> tags);
+        Result<List<Post>> GetPostByTagName(string tagName);
     }
 }

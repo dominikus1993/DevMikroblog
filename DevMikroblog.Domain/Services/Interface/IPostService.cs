@@ -13,5 +13,6 @@ namespace DevMikroblog.Domain.Services.Interface
         Result<Post> Read(long id);
         Result<bool> Update(Post post);
         Result<Post> Create(Post post);
+        Result<bool> Delete(long id);
     }
 }

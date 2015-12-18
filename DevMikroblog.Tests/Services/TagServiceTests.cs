@@ -64,5 +64,24 @@ namespace DevMikroblog.Tests.Services
             _tagRepository.Verify(x => x.Create(It.IsAny<Tag>()),Times.Once);
             _tagRepository.Verify(x => x.Update(It.IsAny<Tag>()),Times.Exactly(2));
         }
+
+        [Test]
+        public void GetPostsByTagName()
+        {
+            const string tagName = "programowanie";
+            var result = _tagService.GetPostByTagName(tagName);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsNotNull(result.Value);
+        }
+
+        [Test]
+        public void GetPostsByInvalidTagName()
+        {
+            const string tagName = "testy";
+            var result = _tagService.GetPostByTagName(tagName);
+            Assert.IsFalse(result.IsSuccess);
+            Assert.IsTrue(result.IsWarning);
+            Assert.IsNull(result.Value);
+        }
     }
 }

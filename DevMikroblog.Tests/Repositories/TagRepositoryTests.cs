@@ -70,6 +70,15 @@ namespace DevMikroblog.Tests.Repositories
         {
             const string tagName = "csharp";
             var result = _tagRepository.GetPostsByTagName(tagName);
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void GetPostByInvalidTagName()
+        {
+            const string tagName = "aaaa";
+            var result = _tagRepository.GetPostsByTagName(tagName);
+            Assert.IsNull(result);
         }
 
         [Test]
