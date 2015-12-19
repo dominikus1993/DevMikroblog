@@ -84,5 +84,53 @@ namespace DevMikroblog.Tests.Services
             Assert.IsTrue(result.IsSuccess);
             Assert.IsNotNull(result.Value);
         }
+
+        [Test]
+        public void ValidVoteUp()
+        {
+            const int id = 1;
+            string userId = _data.Users.First().Id;
+            var result = _service.VoteUp(id, userId);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsNotNull(result.Value);
+        }
+
+        [Test]
+        public void InValidVoteDown()
+        {
+            const int id = 111;
+            string userId = _data.Users.First().Id;
+            var result = _service.VoteDown(id, userId);
+            Assert.IsTrue(result.IsWarning);
+            Assert.IsNull(result.Value);
+        }
+
+        [Test]
+        public void ValidVoteDown()
+        {
+            const int id = 1;
+            string userId = _data.Users.First().Id;
+            var result = _service.VoteDown(id, userId);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsNotNull(result.Value);
+        }
+
+        [Test]
+        public void GetPostsByUserId()
+        {
+            const string userId = "d1u2p3a";
+            var result = _service.GetPostsByUser(userId);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsNotEmpty(result.Value);
+        }
+
+        [Test]
+        public void GetPostsByinvalidUserId()
+        {
+            const string userId = "d1u2p3121221212121211221a";
+            var result = _service.GetPostsByUser(userId);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsEmpty(result.Value);
+        }
     }
 }

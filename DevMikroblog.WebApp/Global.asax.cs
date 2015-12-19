@@ -19,7 +19,8 @@ namespace DevMikroblog.WebApp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            ControllerBuilder.Current.SetControllerFactory(new DefaultDependencyResolver());
+            ControllerBuilder.Current.SetControllerFactory(new ApplicationControllerFactory());
+            GlobalConfiguration.Configuration.DependencyResolver = new ApplicationDependencyResolver();
         }
     }
 }

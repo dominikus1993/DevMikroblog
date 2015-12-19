@@ -14,30 +14,27 @@ using Ninject;
 
 namespace DevMikroblog.WebApp.Infrastructure
 {
-    public class DefaultDependencyResolver:DefaultControllerFactory
+    public class ApplicationControllerFactory:DefaultControllerFactory
     {
         private readonly IKernel _kernel;
 
-        public DefaultDependencyResolver()
+        public ApplicationControllerFactory()
         {
-            _kernel = AddBindings();
+            _kernel = new StandardKernel();
+            AddBindings();
 
         }
 
         protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
-        {
-            return (IController)(controllerType == null ? null : _kernel.Get(controllerType));
-        }
+             => (IController)(controllerType == null ? null : _kernel.Get(controllerType));
 
-        private IKernel AddBindings()
+        private void AddBindings()
         {
-            var kernel = new StandardKernel();
-            kernel.Bind<IDbContext>().To<ApplicationDbContext>();
-            kernel.Bind<IPostRepository>().To<PostRepository>();
-            kernel.Bind<IPostService>().To<PostService>();
-            kernel.Bind<ITagRepository>().To<TagRepository>();
-            kernel.Bind<ITagService>().To<TagService>();
-            return kernel;
+            _kernel.Bind<IPostService>().To<PostService>();
+            _kernel.Bind<ITagService>().To<TagService>();
+            _kernel.Bind<ITagRepository>().To<TagRepository>();
+            _kernel.Bind<IPostRepository>().To<PostRepository>();
+            _kernel.Bind<IDbContext>().To<ApplicationDbContext>();
         }
     }
 }

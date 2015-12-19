@@ -1,12 +1,20 @@
-﻿using System.Security.Claims;
+﻿using System.Runtime.Serialization;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DevMikroblog.Domain.Model
 {
+    [DataContract(IsReference = true)]
     public class ApplicationUser:IdentityUser
     {
+        [DataMember]
+        public override string Id { get; set; }
+
+        [DataMember]
+        public override string UserName { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

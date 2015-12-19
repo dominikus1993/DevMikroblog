@@ -61,14 +61,14 @@ namespace DevMikroblog.Domain.Repositories.Implementation
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Post Vote(Post entity, Vote vote, Func<long, long> downOrUpFunc)
+        public Post Vote(long id, Vote vote, Func<long, long> downOrUpFunc)
         {
-            var query = Context.Posts.SingleOrDefault(post => post.Id == entity.Id);
+            var query = Context.Posts.SingleOrDefault(post => post.Id == id);
 
             if (query != null)
             {
                 query.Votes.Add(vote);
-                query.Rate = downOrUpFunc(entity.Rate);
+                query.Rate = downOrUpFunc(query.Rate);
                 Context.Votes.Add(vote);
                 return query;
             }

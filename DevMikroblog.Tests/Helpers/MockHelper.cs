@@ -34,6 +34,7 @@ namespace DevMikroblog.Tests.Helpers
             result.Setup(x => x.Posts).Returns(GetMockDbSet(Generator.Posts).Object);
             result.Setup(x => x.Tags).Returns(GetMockDbSet(Generator.Tags).Object);
             result.Setup(x => x.Votes).Returns(GetMockDbSet(Generator.Votes).Object);
+            result.Setup(x => x.Comments).Returns(GetMockDbSet(Generator.Comments).Object);
             result.Setup(x => x.SaveChanges()).Verifiable();
             return result;
         }
@@ -58,6 +59,21 @@ namespace DevMikroblog.Tests.Helpers
             result.Setup(x => x.Read(2)).Returns((Post)null);// invalid id
             result.Setup(x => x.Update(It.IsAny<Post>())).Returns(true);
             result.Setup(x => x.Create(It.IsAny<Post>())).Returns(Generator.Posts.First());
+            result.Setup(x => x.Vote(It.IsAny<long>(), It.IsAny<Vote>(), It.IsAny<Func<long, long>>()))
+                .Returns<long, Vote, Func<long, long>>((id, vote, func) => Generator.Posts.SingleOrDefault(post => post.Id == id));
+            return result;
+        }
+
+        public static Mock<ICommentsRepository> MockCommentsRepository()
+        {
+            var result = new Mock<ICommentsRepository>();
+            result.Setup(x => x.Comments).Returns(Generator.Comments.AsQueryable());
+            result.Setup(x => x.Read(1)).Returns(Generator.Comments.First());// valid id
+            result.Setup(x => x.Read(2)).Returns((Comment)null);// invalid id
+            result.Setup(x => x.Update(It.IsAny<Comment>())).Returns(true);
+            result.Setup(x => x.Create(It.IsAny<Comment>())).Returns(Generator.Comments.First());
+            result.Setup(x => x.Vote(It.IsAny<long>(), It.IsAny<Vote>(), It.IsAny<Func<long, long>>()))
+                .Returns<long, Vote, Func<long, long>>((id, vote, func) => Generator.Comments.SingleOrDefault(c => c.Id == id));
             return result;
         }
 

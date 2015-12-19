@@ -1,0 +1,16 @@
+﻿using System.Collections.Generic;
+using DevMikroblog.Domain.Model;
+
+namespace DevMikroblog.Domain.Services.Interface
+{
+    public interface ICommentsService:IService<Comment>
+    {
+        Result<List<Comment>> Comments { get; }
+        Result<Comment> Read(long id);
+        Result<bool> Update(Comment comment);
+        Result<Comment> Create(Comment comment);
+        Result<bool> Delete(long id);
+        Result<Comment> VoteUp(long id, string userId);
+        Result<Comment> VoteDown(long id, string userId);
+    }
+}

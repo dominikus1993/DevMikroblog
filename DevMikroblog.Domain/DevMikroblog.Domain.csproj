@@ -49,6 +49,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,6 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseContext\Implementation\ApplicationDbContext.cs" />
+    <Compile Include="Migrations\201512191500281_First.cs" />
+    <Compile Include="Migrations\201512191500281_First.Designer.cs">
+      <DependentUpon>201512191500281_First.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\UserRole.cs" />
     <Compile Include="Repositories\Implementation\BaseRepository.cs" />
     <Compile Include="DatabaseContext\Interface\IDbContext.cs" />
     <Compile Include="Model\ApplicationUser.cs" />
@@ -68,16 +75,20 @@
     <Compile Include="Model\UserVote.cs" />
     <Compile Include="Model\Vote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Implementation\CommentsRepository.cs" />
     <Compile Include="Repositories\Implementation\PostRepository.cs" />
     <Compile Include="Repositories\Implementation\TagRepository.cs" />
+    <Compile Include="Repositories\Interface\ICommentsRepository.cs" />
     <Compile Include="Repositories\Interface\ICrudable.cs" />
     <Compile Include="Repositories\Interface\IPostRepository.cs" />
     <Compile Include="Repositories\Interface\IRepository.cs" />
     <Compile Include="Repositories\Interface\ITagRepository.cs" />
     <Compile Include="Repositories\Interface\IVotable.cs" />
     <Compile Include="Services\Implementation\BaseService.cs" />
+    <Compile Include="Services\Implementation\CommentsService.cs" />
     <Compile Include="Services\Implementation\PostService.cs" />
     <Compile Include="Services\Implementation\TagService.cs" />
+    <Compile Include="Services\Interface\ICommentsService.cs" />
     <Compile Include="Services\Interface\IPostService.cs" />
     <Compile Include="Services\Interface\IService.cs" />
     <Compile Include="Services\Interface\ITagService.cs" />
@@ -94,6 +105,11 @@
       <Project>{d42b480d-7e81-4e42-b634-8a1959a7014e}</Project>
       <Name>DevMikroblog.Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201512191500281_First.resx">
+      <DependentUpon>201512191500281_First.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

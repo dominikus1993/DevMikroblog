@@ -119,8 +119,10 @@
     <Compile Include="Helpers\DataGenerator.cs" />
     <Compile Include="Helpers\MockHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CommentsRepositoryTests.cs" />
     <Compile Include="Repositories\PostRepositoryTests.cs" />
     <Compile Include="Repositories\TagRepositoryTests.cs" />
+    <Compile Include="Services\CommentsServiceTests.cs" />
     <Compile Include="Services\PostServiceTests.cs" />
     <Compile Include="Services\TagServiceTests.cs" />
   </ItemGroup>

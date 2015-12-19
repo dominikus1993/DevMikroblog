@@ -34,6 +34,7 @@ namespace DevMikroblog.Domain.Services.Implementation
         public Result<bool> Update(Post post)
         {
             bool queryResult = _postRepository.Update(post);
+            _postRepository.SaveChanges();
             return Result<bool>.WarningWhenNoData(queryResult);
         }
 
@@ -41,13 +42,46 @@ namespace DevMikroblog.Domain.Services.Implementation
         {
 
             var queryResult = _postRepository.Create(post);
+            _postRepository.SaveChanges();
             return Result<Post>.WarningWhenNoData(queryResult);
         }
 
         public Result<bool> Delete(long id)
         {
             bool queryResult = _postRepository.Delete(id);
+            _postRepository.SaveChanges();
             return Result<bool>.WarningWhenNoData(queryResult);
+        }
+
+        public Result<Post> VoteUp(long id, string userId)
+        {
+            var vote = new Vote()
+            {
+                PostId = id,
+                UserId = userId,
+                UserVote = UserVote.VoteUp
+            };
+            var queryResult = _postRepository.Vote(id, vote, rate => rate + 1);
+            return Result<Post>.WarningWhenNoData(queryResult);
+
+        }
+
+        public Result<Post> VoteDown(long id, string userId)
+        {
+            var vote = new Vote()
+            {
+                PostId = id,
+                UserId = userId,
+                UserVote = UserVote.VoteDown
+            };
+            var queryResult = _postRepository.Vote(id, vote, rate => rate - 1);
+            return Result<Post>.WarningWhenNoData(queryResult);
+        }
+
+        public Result<List<Post>> GetPostsByUser(string userId)
+        {
+            var queryResult = _postRepository.Posts.Where(x => x.AuthorId == userId).ToList();
+            return Result<List<Post>>.WarningWhenNoData(queryResult);
         }
     }
 }

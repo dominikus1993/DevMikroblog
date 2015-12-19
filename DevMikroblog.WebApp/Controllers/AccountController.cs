@@ -332,7 +332,8 @@ namespace DevMikroblog.WebApp.Controllers
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-
+            var currentUser = UserManager.FindByName(user.UserName);
+            var roleResult = await UserManager.AddToRoleAsync(currentUser.Id, UserRole.User.ToString());
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
