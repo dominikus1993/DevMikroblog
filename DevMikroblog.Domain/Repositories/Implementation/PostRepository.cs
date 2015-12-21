@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
@@ -49,7 +50,7 @@ namespace DevMikroblog.Domain.Repositories.Implementation
 
         public bool Delete(long id)
         {
-            var postToRemoving = Context.Posts.SingleOrDefault(post => post.Id == id);
+            var postToRemoving = Context.Posts.Include(x => x.Tags).SingleOrDefault(post => post.Id == id);
 
             if (postToRemoving != null)
             {

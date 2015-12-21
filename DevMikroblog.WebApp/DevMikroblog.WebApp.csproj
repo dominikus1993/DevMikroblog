@@ -251,6 +251,8 @@
     <Compile Include="Infrastructure\ApplicationDependencyResolver.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CreatePostViewModel.cs" />
+    <Compile Include="Models\UpdatePostViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />

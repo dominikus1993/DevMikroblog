@@ -36,7 +36,18 @@ namespace DevMikroblog.Tests.Services
             var result = _tagService.ParseTags(text);
             Assert.IsTrue(result.IsSuccess);
             Assert.IsNotNull(result.Value);
+            Assert.IsNotEmpty(result.Value);
             Assert.AreEqual(result.Value.First().Name, exceptTag);
+        }
+
+        [Test]
+        public void ParseTagbyTextWithoutTags()
+        {
+            const string text = "Który z tych języków jest najłatwiejszy: c/c++/pascal/java?";
+            var result = _tagService.ParseTags(text);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsNotNull(result.Value);
+            Assert.IsEmpty(result.Value);
         }
 
         [Test]
@@ -63,6 +74,17 @@ namespace DevMikroblog.Tests.Services
             var result = _tagService.CreateOrUpdateTags(tags);
             _tagRepository.Verify(x => x.Create(It.IsAny<Tag>()),Times.Once);
             _tagRepository.Verify(x => x.Update(It.IsAny<Tag>()),Times.Exactly(2));
+        }
+
+
+        [Test]
+        public void CreateOrUpdateTagWithEmptyTagCollection()
+        {
+            var tags = new List<Tag>();
+
+            var result = _tagService.CreateOrUpdateTags(tags);
+            Assert.IsEmpty(result.Value);
+
         }
 
         [Test]

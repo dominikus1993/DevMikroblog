@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using DevMikroblog.Domain.DatabaseContext.Interface;
@@ -95,13 +97,26 @@ namespace DevMikroblog.Tests.Helpers
         {
             var result = new Mock<IPostService>();
             result.Setup(x => x.Posts).Returns(Result<List<Post>>.WarningWhenNoData(Generator.Posts));
+            result.Setup(x => x.Read(It.IsAny<long>()))
+                .Returns<long>(id => Result<Post>.WarningWhenNoData(Generator.Posts.SingleOrDefault(post => post.Id == id)));
+            result.Setup(x => x.Create(It.IsAny<Post>())).Returns<Post>(x => Result<Post>.WarningWhenNoData(x));
             return result;
         }
 
         public static Mock<ITagService> MockTagService()
         {
             var result = new Mock<ITagService>();
+            result.Setup(x => x.ParseTags(It.IsAny<string>()))
+                .Returns(Result<List<Tag>>.WarningWhenNoData(Generator.Tags));
+            result.Setup(x => x.CreateOrUpdateTags(It.IsAny<List<Tag>>())).Returns<List<Tag>>(x => Result<List<Tag>>.WarningWhenNoData(x));
             return result;
+        }
+
+        public static IPrincipal MockIdentity()
+        {
+            var claim = new Claim("dominikus1993", "d1u2p3a");
+            var mockIdentity = Mock.Of<ClaimsIdentity>(identity => identity.FindFirst(It.IsAny<string>()) == claim);
+            return Mock.Of<IPrincipal>(x => x.Identity == mockIdentity);
         }
     }
 
