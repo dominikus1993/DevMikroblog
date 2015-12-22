@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html ng-app>
+<html data-ng-app="DevMikroblog">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -36,7 +36,12 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/underscore.js"></script>
+<script src="~/Scripts/angular.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/model.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/postService.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/controller.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/app.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

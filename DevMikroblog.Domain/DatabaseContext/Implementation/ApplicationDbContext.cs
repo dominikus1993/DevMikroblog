@@ -23,6 +23,7 @@ namespace DevMikroblog.Domain.DatabaseContext.Implementation
 
         public DbSet<Tag> Tags { get; set; }
 
+
         public ApplicationDbContext() : base("DevMikroblogConnection")
         {
             

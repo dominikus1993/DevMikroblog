@@ -210,3 +210,11 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/DevMikroblog.WebApp/Scripts/app/app.js
+/DevMikroblog.WebApp/Scripts/app/app.js.map
+/DevMikroblog.WebApp/Scripts/app/controller.js
+/DevMikroblog.WebApp/Scripts/app/controller.js.map
+/DevMikroblog.WebApp/Scripts/app/model.js
+/DevMikroblog.WebApp/Scripts/app/model.js.map
+/DevMikroblog.WebApp/Scripts/app/postService.js
+/DevMikroblog.WebApp/Scripts/app/postService.js.map
