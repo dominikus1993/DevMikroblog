@@ -50,7 +50,6 @@ namespace DevMikroblog.Tests.Repositories
                 AuthorId = "d1u2p3a",
                 Author = _data.Users[0]
             };
-
             var result = _commentsRepository.Create(comment);
             _context.Object.SaveChanges();
             _context.Verify();
@@ -69,7 +68,7 @@ namespace DevMikroblog.Tests.Repositories
             };
 
             var updateResult = _commentsRepository.Update(comment);
-            Assert.IsTrue(updateResult);
+            Assert.That(() => updateResult, Is.True);
         }
 
         [Test]

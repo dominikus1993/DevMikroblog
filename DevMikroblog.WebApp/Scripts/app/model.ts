@@ -16,4 +16,16 @@
         public AuthorId: string;
         public AuthorName: string;
     }
+
+    export class LoginData {
+        public UserName: string;
+        public Password: string;
+        public isRemember: boolean = true;
+    }
+
+    export class RegisterData {
+        public Email: string;
+        public Password: string;
+        public ConfirmPassword: string;
+    }
 }

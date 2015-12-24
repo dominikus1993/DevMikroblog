@@ -360,8 +360,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Scripts\app\accountController.ts" />
+    <TypeScriptCompile Include="Scripts\app\accountService.ts" />
+    <TypeScriptCompile Include="Scripts\app\apiUrls.ts" />
     <TypeScriptCompile Include="Scripts\app\app.ts" />
-    <TypeScriptCompile Include="Scripts\app\controller.ts" />
+    <TypeScriptCompile Include="Scripts\app\constants.ts" />
+    <TypeScriptCompile Include="Scripts\app\postController.ts" />
     <TypeScriptCompile Include="Scripts\app\model.ts" />
     <TypeScriptCompile Include="Scripts\app\postService.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
