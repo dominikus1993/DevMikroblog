@@ -7,6 +7,7 @@ module Application.Controllers {
         public scope: any;
         public service:Services.IPostService;
         public posts: Models.Post[];
+        public postToAdd: Models.PostToAdd;
 
         constructor($scope: ng.IScope, $service:Services.IPostService) {
             this.scope = $scope;
@@ -25,6 +26,16 @@ module Application.Controllers {
                 }
 
             });         
+        }
+
+        public add() {
+            console.log(this.postToAdd);
+            this.service.add(this.postToAdd, (data) => {
+                if (data.IsSuccess) {
+                    console.log("Dodano");
+                    this.posts.push(data.Value);
+                }
+            });
         }
 
     }

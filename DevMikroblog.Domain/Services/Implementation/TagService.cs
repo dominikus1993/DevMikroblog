@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using DevMikroblog.Domain.Model;
 using DevMikroblog.Domain.Repositories.Interface;
 using DevMikroblog.Domain.Services.Interface;
@@ -29,10 +27,15 @@ namespace DevMikroblog.Domain.Services.Implementation
             return Result<T>.WarningWhenNoData(_tagRepository.Query(queryFunc));
         }
 
+        public override int SaveChanges()
+        {
+            return _tagRepository.SaveChanges();
+        }
+
         public Result<List<Tag>> ParseTags(string text)
         {
             var tags = TagParser(text, new Regex(@"(?<=#)\w+"));
-            var result =  tags.Select(x => new Tag() { Name = x }).ToList();
+            var result =  tags.Select(x => new Tag() { Name = x.ToLower() }).ToList();
             return Result<List<Tag>>.WarningWhenNoData(result);
         }
 
@@ -40,7 +43,7 @@ namespace DevMikroblog.Domain.Services.Implementation
         {
             var result = tags.Select(tag =>
             {
-                if (_tagRepository.Exist(tag.Name))
+                if (_tagRepository.Exist(tag.Name.ToLower()))
                 {
                     _tagRepository.Update(tag);
                     return tag;
@@ -50,6 +53,7 @@ namespace DevMikroblog.Domain.Services.Implementation
                     return _tagRepository.Create(tag);
                 }
             }).ToList();
+            _tagRepository.SaveChanges();
             return Result<List<Tag>>.WarningWhenNoData(result);        
         }
 
@@ -57,6 +61,11 @@ namespace DevMikroblog.Domain.Services.Implementation
         {
             var queryResult = _tagRepository.GetPostsByTagName(tagName);
             return Result<List<Post>>.WarningWhenNoData(queryResult);
+        }
+
+        public Result<bool> Exist(string tagName)
+        {
+            return Result<bool>.WarningWhenNoData(_tagRepository.Exist(tagName.ToLower()));
         }
     }
 }

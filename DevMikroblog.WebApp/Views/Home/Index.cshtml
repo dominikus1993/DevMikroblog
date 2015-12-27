@@ -1,5 +1,10 @@
-﻿<p>Nothing here {{'yet' + '!'}}</p>
+﻿
 <div class="row" ng-controller="PostController as pc">
+    <form>
+        <input type="text" class="form-control" name="pc.postToAdd.Title" required ng-model="pc.postToAdd.Title"/>
+        <input type="text" class="form-control" name="pc.postToAdd.Message" required ng-model="pc.postToAdd.Message"/>
+        <button type="submit" ng-click="pc.add()"> Dodaj post</button>
+    </form>
     <div class="col-md-1"></div>
     <div class="col-md-12">
         <div id="postlist" data-ng-controller="PostController as pc">
@@ -23,7 +28,7 @@
                 </div>
 
                 <div class="panel-footer">
-                    <span class="label label-default">Welcome</span> <span class="label label-default">Updates</span> <span class="label label-default">July</span>
+                    &nbsp;<span class="label label-default" data-ng-repeat="tag in post.Tags">{{tag.Name}}</span>&nbsp;    
                 </div>
             </div>
         </div>

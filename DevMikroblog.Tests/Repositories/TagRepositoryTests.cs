@@ -87,7 +87,7 @@ namespace DevMikroblog.Tests.Repositories
             var tag = new Tag()
             {
                 Id = 1,
-                Name = "aa",
+                Name = "java",
                 Posts = new List<Post>()
             };
 

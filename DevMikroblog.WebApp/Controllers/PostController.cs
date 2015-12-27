@@ -13,49 +13,53 @@ namespace DevMikroblog.WebApp.Controllers
 {
     public class PostController : ApiController
     {
-        private readonly IPostService _postService;
-        private readonly ITagService _tagService;
-
-        public PostController(IPostService postService, ITagService tagService)
+        private IPostTagService _postTagService;
+        public PostController(IPostTagService postTagService)
         {
-            _postService = postService;
-            _tagService = tagService;
+            _postTagService = postTagService;
         }
 
         public Result<List<Post>> Get()
         {
-            return _postService.Posts;
+            return _postTagService.Posts;
         }
 
         public Result<Post> Get(int id)
         {
-            return _postService.Read(id);
+            return _postTagService.GetPostById(id);
         }
 
         [HttpPost]
         [Authorize]
         public Result<Post> Create([FromBody] CreatePostViewModel post)
         {
-            var tags = _tagService.CreateOrUpdateTags(_tagService.ParseTags(post.Message).Value);
-            var postToCreate = new Post()
+            var resultPost = new Post()
             {
                 AuthorId = User.Identity.GetUserId(),
                 AuthorName = User.Identity.GetUserName(),
-                Title  = post.Title,
                 Message = post.Message,
-                Tags = tags.Value
-                
+                Title = post.Title,
             };
-
-            return _postService.Create(postToCreate);
+            return _postTagService.CreatePost(resultPost);
         }
 
-        [HttpPost]
+        [HttpPut]
         [Authorize]
-        public Result<Post> Update(long postId)
+        public Result<Post> Update(UpdatePostViewModel post)
         {
-            return null;
+            var resultPost = new Post()
+            {
+                AuthorId = User.Identity.GetUserId(),
+                AuthorName = User.Identity.GetUserName(),
+                Message = post.Message,
+                Title = post.Title,
+            };
+            var result = _postTagService.CreatePost(resultPost);
+            return _postTagService.GetPostById(result.Value.Id);
         }
+
+
 
     }
 }
+

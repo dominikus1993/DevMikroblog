@@ -124,6 +124,7 @@
     <Compile Include="Repositories\TagRepositoryTests.cs" />
     <Compile Include="Services\CommentsServiceTests.cs" />
     <Compile Include="Services\PostServiceTests.cs" />
+    <Compile Include="Services\PostTagServiceTests.cs" />
     <Compile Include="Services\TagServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>

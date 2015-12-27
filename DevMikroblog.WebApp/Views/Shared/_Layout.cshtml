@@ -24,10 +24,10 @@
                     <li>@Html.ActionLink("API", "Index", "Help", new {area = ""}, null)</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" id="logOff">
-                    <li style="color: white;"><a href="#">Witaj! <i>dominikus1910</i></a></li>
-                    <li><button class="btn btn-primary">Wyloguj się</button></li>
+                    <li style="color: white;" ng-show="isLogged"><a href="#">Witaj! <i>{{account.userName}}</i></a></li>
+                    <li><button class="btn btn-primary" ng-click="account.logout()" ng-show="isLogged">Wyloguj się</button></li>
                 </ul>
-                <form class="navbar-form navbar-right" role="search" id="loginForm">
+                <form class="navbar-form navbar-right" role="search" id="loginForm" ng-show="!isLogged">
                     <div class="form-group">
                         <input type="text" class="form-control" name="loginData.UserName" placeholder="Username" required="" ng-model="account.loginData.UserName">
                     </div>

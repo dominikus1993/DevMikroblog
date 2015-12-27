@@ -105,5 +105,23 @@ namespace DevMikroblog.Tests.Services
             Assert.IsTrue(result.IsWarning);
             Assert.IsNull(result.Value);
         }
+
+        [Test]
+        public void ExistTagValidName()
+        {
+            const string tagName = "java";
+            var result = _tagService.Exist(tagName);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsTrue(result.Value);
+        }
+
+        [Test]
+        public void ExistTagInValidName()
+        {
+            const string tagName = "ja21212121va";
+            var result = _tagService.Exist(tagName);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsFalse(result.Value);
+        }
     }
 }

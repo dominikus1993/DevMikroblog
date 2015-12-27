@@ -12,5 +12,6 @@ namespace DevMikroblog.Domain.Services.Implementation
     public abstract class BaseService<TEntity>:IService<TEntity> 
     {
         public abstract Result<T> Query<T>(Expression<Func<IQueryable<TEntity>, T>> func);
+        public abstract int SaveChanges();
     }
 }

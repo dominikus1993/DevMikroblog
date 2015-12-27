@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DevMikroblog.Domain.DatabaseContext.Interface;
 using DevMikroblog.Domain.Model;
@@ -106,12 +107,20 @@ namespace DevMikroblog.Tests.Helpers
         public static Mock<ITagService> MockTagService()
         {
             var result = new Mock<ITagService>();
-            result.Setup(x => x.ParseTags(It.IsAny<string>()))
-                .Returns(Result<List<Tag>>.WarningWhenNoData(Generator.Tags));
+            result.Setup(x => x.ParseTags(It.IsAny<string>())).Returns<string>(x => Result<List<Tag>>.WarningWhenNoData(Tools.TagUtils.Parsers.TagParser(x, new Regex(@"(?<=#)\w+")).Select(tag => new Tag() { Name = tag.ToLower() }).ToList()));
             result.Setup(x => x.CreateOrUpdateTags(It.IsAny<List<Tag>>())).Returns<List<Tag>>(x => Result<List<Tag>>.WarningWhenNoData(x));
             return result;
         }
 
+
+        public static Mock<IPostTagService> MockPostTagService()
+        {
+            var result = new Mock<IPostTagService>();
+            result.Setup(x => x.CreatePost(It.IsAny<Post>())).Returns<Post>(x => Result<Post>.WarningWhenNoData(x));
+            result.Setup(x => x.Posts).Returns(Result<List<Post>>.WarningWhenNoData(Generator.Posts));
+            result.Setup(x => x.GetPostById(It.IsAny<long>())).Returns<long>(id => Result<Post>.WarningWhenNoData(Generator.Posts.SingleOrDefault(post => post.Id == id)));
+            return result;
+        }
         public static IPrincipal MockIdentity()
         {
             var claim = new Claim("dominikus1993", "d1u2p3a");

@@ -1,8 +1,10 @@
 ﻿
 
-module Application.Services{
+module Application.Services {
+
     export interface IPostService {
         getAllPost(callback: (data: Models.Result<Models.Post[]>) => void);
+        add(post: Models.PostToAdd, callback: (post: Models.Result<Models.Post>) => void); 
     }
 
     export class PostService implements IPostService {
@@ -24,5 +26,23 @@ module Application.Services{
                 return error;
             });
         }
-    } 
+
+        add(post: Models.PostToAdd, callback: (post: Models.Result<Models.Post>) => void) {
+            const token = `bearer ${Constants.getTokenValue()}`;
+
+            return this.http({
+                method: "POST",
+                url: Urls.addPostUrl,
+                data: post,
+                headers: {
+                    "Authorization":token
+                }
+            }).success((data) => {
+                console.log(data);
+                callback(data as Models.Result<Models.Post>);
+            }).error(error => {
+                console.error(error);
+            });
+        }
+    }
 }

@@ -15,6 +15,17 @@
         public Rate: number;
         public AuthorId: string;
         public AuthorName: string;
+        public Tags:Tag[];
+    }
+
+    export class Tag {
+        public Id: number;
+        public Name:string;
+    }
+
+    export class  PostToAdd {
+        public Title: string;
+        public Message: string;
     }
 
     export class LoginData {

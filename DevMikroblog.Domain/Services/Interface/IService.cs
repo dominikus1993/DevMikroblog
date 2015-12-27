@@ -8,5 +8,6 @@ namespace DevMikroblog.Domain.Services.Interface
     public interface IService<TEntity>
     {
         Result<T> Query<T>(Expression<Func<IQueryable<TEntity>, T>> func);
+        int SaveChanges();
     }
 }

@@ -16,12 +16,8 @@
         }
 
         login(loginData: Models.LoginData, callback: (data: any) => void) {
-
-            const data = {
-                grant_type: "password",
-                username: loginData.UserName,
-                password: loginData.Password
-            };
+            const data = `grant_type=password&username=${loginData.UserName}&password=${loginData.Password}`;
+            console.log(data);
             this.http.post(Urls.loginUrl, data).success((result: any) => {
                 console.log(result);
                 if (loginData.isRemember) {

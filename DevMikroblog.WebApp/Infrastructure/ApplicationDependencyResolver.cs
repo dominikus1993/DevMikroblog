@@ -25,6 +25,7 @@ namespace DevMikroblog.WebApp.Infrastructure
 
         private void AddBindings()
         {
+            _kernel.Bind<IPostTagService>().To<PostTagService>();
             _kernel.Bind<IPostService>().To<PostService>();
             _kernel.Bind<ITagService>().To<TagService>();
             _kernel.Bind<ITagRepository>().To<TagRepository>();
@@ -34,7 +35,6 @@ namespace DevMikroblog.WebApp.Infrastructure
 
         public void Dispose()
         {
-            throw new NotImplementedException();
         }
 
         public object GetService(Type serviceType) => _kernel.TryGet(serviceType);

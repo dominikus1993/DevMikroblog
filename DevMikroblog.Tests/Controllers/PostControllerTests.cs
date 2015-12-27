@@ -25,9 +25,8 @@ namespace DevMikroblog.Tests.Controllers
         public void Init()
         {
             _data = DataGenerator.Get();
-            var postServiceMock = MockHelper.MockPostService();
-            var tagServiceMock = MockHelper.MockTagService();
-            _controller = new PostController(postServiceMock.Object, tagServiceMock.Object) { Request = new HttpRequestMessage() };
+            var postTagService = MockHelper.MockPostTagService();
+            _controller = new PostController(postTagService.Object) { Request = new HttpRequestMessage() };
             _controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
             _controller.User = MockHelper.MockIdentity();
         }
@@ -68,7 +67,7 @@ namespace DevMikroblog.Tests.Controllers
 
             var result = _controller.Create(postViewModel);
             Assert.IsTrue(result.IsSuccess);
-            Assert.IsNotNull(result.Value);
+            Assert.That(result.Value, Is.Not.Null);
         }
     }
 }

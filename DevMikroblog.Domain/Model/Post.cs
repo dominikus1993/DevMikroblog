@@ -36,6 +36,7 @@ namespace DevMikroblog.Domain.Model
 
         public ApplicationUser Author { get; set; }
 
+        [DataMember]
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
 
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();

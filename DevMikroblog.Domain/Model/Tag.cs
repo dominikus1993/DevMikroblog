@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace DevMikroblog.Domain.Model
 {
-    [DataContract(IsReference = true)]
+    [DataContract]
     public class Tag
     {
 

@@ -24,6 +24,11 @@ namespace DevMikroblog.Domain.Services.Implementation
             return Result<T>.WarningWhenNoData(_postRepository.Query(compiledFunc));
         }
 
+        public override int SaveChanges()
+        {
+            return _postRepository.SaveChanges();
+        }
+
         public Result<List<Post>> Posts => Result<List<Post>>.WarningWhenNoData(_postRepository.Posts?.ToList());
 
         public Result<Post> Read(long id)

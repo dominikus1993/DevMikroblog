@@ -25,11 +25,10 @@ namespace DevMikroblog.Domain.Repositories.Implementation
 
         public bool Update(Tag tag)
         {
-            var tagToEdit = Context.Tags.SingleOrDefault(x => x.Id == tag.Id);
+            var tagToEdit = Context.Tags.Include(tag_ => tag_.Posts).SingleOrDefault(x => x.Name.ToLower() == tag.Name.ToLower());
 
             if (tagToEdit != null)
             {
-                tagToEdit.Name = tag.Name;
                 foreach (var post in tag.Posts)
                 {
                     tagToEdit.Posts.Add(post);

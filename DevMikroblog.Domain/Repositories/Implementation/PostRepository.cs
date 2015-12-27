@@ -23,7 +23,7 @@ namespace DevMikroblog.Domain.Repositories.Implementation
             return func(Context.Posts);
         }
 
-        public IQueryable<Post> Posts => Context.Posts;
+        public IQueryable<Post> Posts => Context.Posts.Include(post => post.Tags);
 
         public Post Create(Post entity)
         {
@@ -32,7 +32,7 @@ namespace DevMikroblog.Domain.Repositories.Implementation
 
         public Post Read(long id)
         {
-            return Context.Posts.SingleOrDefault(post => post.Id == id);
+            return Context.Posts.Include(post => post.Tags).SingleOrDefault(post => post.Id == id);
         }
 
         public bool Update(Post entity)
