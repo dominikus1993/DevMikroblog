@@ -1,42 +1,54 @@
 ﻿
-<div class="row" ng-controller="PostController as pc">
-    <form>
-        <input type="text" class="form-control" name="pc.postToAdd.Title" required ng-model="pc.postToAdd.Title"/>
-        <input type="text" class="form-control" name="pc.postToAdd.Message" required ng-model="pc.postToAdd.Message"/>
-        <button type="submit" ng-click="pc.add()"> Dodaj post</button>
-    </form>
-    <div class="col-md-1"></div>
-    <div class="col-md-12">
-        <div id="postlist" data-ng-controller="PostController as pc">
-            <div class="panel" data-ng-repeat="post in pc.posts">
-                <div class="panel-heading">
-                    <div class="text-center">
-                        <div class="row">
-                            <div class="col-sm-9">
-                                <h3 class="pull-left">{{post.Title}}</h3>
-                            </div>
-                            <div class="col-sm-3">
-                                <h4 class="pull-right">
-                                    <small><em>{{post.Date}}</em></small>
-                                </h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="panel-body">{{post.Message}}.. <a href="#">Read more</a>
-                </div>
+<div ng-controller="PostController as pc">
+    <div class="well">
+        <h4><i class="fa fa-paper-plane-o"></i> Dodaj Post:</h4>
+        <form role="form" name="post">
+            <div class="form-group">
+                <input type="text" class="form-control" name="title" ng-model="pc.postToAdd.Title" placeholder="Wpisz tytuł" required />
 
-                <div class="panel-footer">
-                    &nbsp;<span class="label label-default" data-ng-repeat="tag in post.Tags">{{tag.Name}}</span>&nbsp;    
+                <div ng-messages="post.title.$error" style="color: maroon" role="alert">
+                    <div ng-message="required">Pole Tytuł jest puste</div>
+                </div>
+                <textarea class="form-control" name="message" rows="3" required ng-model="pc.postToAdd.Message" placeholder="Wpisz wiadomość"></textarea>
+                <div ng-messages="post.message.$error" style="color: maroon" role="alert">
+                    <div ng-message="required">Pole Wiadomość jest puste</div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="pc.add()"><i class="fa fa-reply"></i> Submit</button>
+        </form>
+    </div>
+    <div class="row">
+        <div class="well col-md-12" ng-repeat="post in pc.posts">
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="http://placekitten.com/150/150">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">{{post.Title}}</h4>
+                    <p class="text-right">Dadał: {{post.AuthorName}}</p>
+                    <p>
+                        {{post.Message}}
+                    </p>
+                    <ul class="list-inline list-unstyled">
+                        <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+                        <li>|</li>
+                        <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+                        <li>|</li>
+                        <li>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                        </li>
+                        <li>|</li>
+                        <li>
+                            &nbsp;<span class="label label-default" data-ng-repeat="tag in post.Tags">{{tag.Name}}</span>&nbsp;
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="text-center"><a href="#" id="loadmore" class="btn btn-primary">Older Posts...</a>
-        </div>
     </div>
 </div>
-
-
-
-

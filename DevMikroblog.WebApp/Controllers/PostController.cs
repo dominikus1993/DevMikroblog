@@ -13,7 +13,7 @@ namespace DevMikroblog.WebApp.Controllers
 {
     public class PostController : ApiController
     {
-        private IPostTagService _postTagService;
+        private readonly IPostTagService _postTagService;
         public PostController(IPostTagService postTagService)
         {
             _postTagService = postTagService;

@@ -21,13 +21,13 @@
             <div class="navbar-collapse collapse" ng-controller="AccountController as account">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new {area = ""}, null)</li>
+                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" id="logOff">
-                    <li style="color: white;" ng-show="isLogged"><a href="#">Witaj! <i>{{account.userName}}</i></a></li>
-                    <li><button class="btn btn-primary" ng-click="account.logout()" ng-show="isLogged">Wyloguj się</button></li>
+                    <li style="color: white;" ng-show="$root.isLogged"><a href="#">Witaj! <i>{{account.userName}}</i></a></li>
+                    <li><button class="btn btn-primary" ng-click="account.logout()" ng-show="$root.isLogged">Wyloguj się</button></li>
                 </ul>
-                <form class="navbar-form navbar-right" role="search" id="loginForm" ng-show="!isLogged">
+                <form class="navbar-form navbar-right" role="search" id="loginForm" ng-show="!$root.isLogged">
                     <div class="form-group">
                         <input type="text" class="form-control" name="loginData.UserName" placeholder="Username" required="" ng-model="account.loginData.UserName">
                     </div>
@@ -52,14 +52,15 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/underscore.js"></script>
     <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/angular-messages.js"></script>
     <script src="~/Scripts/app/apiUrls.js"></script>
     <script src="~/Scripts/app/constants.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/model.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/postService.js"></script>
+    <script src="~/Scripts/app/model.js"></script>
+    <script src="~/Scripts/app/postService.js"></script>
     <script src="~/Scripts/app/accountService.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/postController.js"></script>
+    <script src="~/Scripts/app/postController.js"></script>
     <script src="~/Scripts/app/accountController.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/app.js"></script>
+    <script src="~/Scripts/app/app.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -22,7 +22,7 @@
         return "";
     }
 
-     export const  checkCredentials = () => {
-        return (sessionStorage.getItem(Constants.accountKey) && sessionStorage.getItem(Constants.tokenKey)) || (localStorage.getItem(Constants.accountKey) && localStorage.getItem(Constants.tokenKey))
+    export const checkCredentials = () => {
+        return (sessionStorage.getItem(Constants.accountKey) != null && sessionStorage.getItem(Constants.tokenKey) != null) || (localStorage.getItem(Constants.accountKey) != null && localStorage.getItem(Constants.tokenKey) != null);
     }
 }
