@@ -116,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\PostControllerTests.cs" />
+    <Compile Include="Controllers\VoteControllerTest.cs" />
     <Compile Include="Helpers\DataGenerator.cs" />
     <Compile Include="Helpers\MockHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

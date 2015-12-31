@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DevMikroblog.Domain.Repositories.Interface
+﻿namespace DevMikroblog.Domain.Repositories.Interface
 {
     public interface ICrudable<TEntity, TId>
     {

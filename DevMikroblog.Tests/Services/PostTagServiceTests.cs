@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Dynamic;
 using DevMikroblog.Domain.Model;
 using DevMikroblog.Domain.Services.Implementation;
 using DevMikroblog.Domain.Services.Interface;
@@ -57,6 +58,7 @@ namespace DevMikroblog.Tests.Services
             Assert.IsTrue(result.IsSuccess);
             Assert.That(result.Value, Is.Not.Null);
         }
+
         [Test]
         public void CreatePostTestWithNewTag()
         {
@@ -70,6 +72,26 @@ namespace DevMikroblog.Tests.Services
             _tagServiceMock.Verify(x => x.CreateOrUpdateTags(It.IsAny<List<Tag>>()), Times.Once);
             Assert.IsTrue(result.IsSuccess);
             Assert.That(result.Value, Is.Not.Null);
+        }
+
+        [Test]
+        public void Delete()
+        {
+            const int id = 1;
+            const string userId = "d1u2p3a";
+            var result = _service.DeletePost(id, userId);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsTrue(result.Value);
+        }
+
+        [Test]
+        public void DeleteByInvalidId()
+        {
+            const int id = 1;
+            const string userId = "d1212121222222222222222222222222222222222222222222222222222222u2p3a";
+            var result = _service.DeletePost(id, userId);
+            Assert.IsFalse(result.IsSuccess);
+            Assert.IsFalse(result.Value);
         }
     }
 }

@@ -28,7 +28,6 @@ namespace DevMikroblog.Domain.Model
 
         public ApplicationUser Author { get; set; }
 
-        [DataMember]
         public long? PostId { get; set; }
 
         public Post Post { get; set; }

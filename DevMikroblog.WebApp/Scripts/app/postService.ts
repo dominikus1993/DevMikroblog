@@ -4,7 +4,10 @@ module Application.Services {
 
     export interface IPostService {
         getAllPost(callback: (data: Models.Result<Models.Post[]>) => void);
-        add(post: Models.PostToAdd, callback: (post: Models.Result<Models.Post>) => void); 
+        add(post: Models.PostToAdd, callback: (post: Models.Result<Models.Post>) => void);
+        delete(id: number, callback: (result: Models.Result<boolean>) => void);
+        voteUp(postId: number, callback: (result: Models.Result<Models.Post>) => void);
+        voteDown(postId: number, callback: (result: Models.Result<Models.Post>) => void);
     }
 
     export class PostService implements IPostService {
@@ -35,7 +38,58 @@ module Application.Services {
                 url: Urls.addPostUrl,
                 data: post,
                 headers: {
-                    "Authorization":token
+                    "Authorization": token
+                }
+            }).success((data) => {
+                console.log(data);
+                callback(data as Models.Result<Models.Post>);
+            }).error(error => {
+                console.error(error);
+            });
+        }
+
+        delete(id: number, callback: (result: Models.Result<boolean>) => void) {
+            const token = `bearer ${Constants.getTokenValue()}`;
+
+            return this.http({
+                method: "DELETE",
+                url: `${Urls.deletePostUrl}/${id}`,
+                headers: {
+                    "Authorization": token
+                }
+            }).success((data) => {
+                console.log(data);
+                callback(data as Models.Result<boolean>);
+            }).error(error => {
+                console.error(error);
+            });
+        }
+
+        voteUp(postId: number, callback: (result: Models.Result<Models.Post>) => void) {
+            const token = `bearer ${Constants.getTokenValue()}`;
+
+            return this.http({
+                method: "GET",
+                url: Urls.postVoteUpUrl(postId),
+                headers: {
+                    "Authorization": token
+                }
+            }).success((data) => {
+                console.log(data);
+                callback(data as Models.Result<Models.Post>);
+            }).error(error => {
+                console.error(error);
+            });
+        }
+
+        voteDown(postId: number, callback: (result: Models.Result<Models.Post>) => void) {
+            const token = `bearer ${Constants.getTokenValue()}`;
+
+            return this.http({
+                method: "GET",
+                url: Urls.postVoteUpUrl(postId),
+                headers: {
+                    "Authorization": token
                 }
             }).success((data) => {
                 console.log(data);

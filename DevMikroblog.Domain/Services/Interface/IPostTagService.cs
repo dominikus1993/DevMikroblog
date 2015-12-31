@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevMikroblog.Domain.Model;
 
 namespace DevMikroblog.Domain.Services.Interface
@@ -8,5 +9,6 @@ namespace DevMikroblog.Domain.Services.Interface
         Result<List<Post>> Posts { get; }
         Result<Post> GetPostById(long id);
         Result<Post> CreatePost(Post post);
+        Result<bool> DeletePost(long id, string userId);
     }
 }

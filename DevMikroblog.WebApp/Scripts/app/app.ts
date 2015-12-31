@@ -1,6 +1,6 @@
 ﻿/// <reference path="../typings/angularjs/angular.d.ts"/>
 
-var appModule = angular.module("DevMikroblog", ['ngMessages']);
+var appModule = angular.module("DevMikroblog", ["ngMessages"]);
 
 appModule.value("isLogged", Application.Constants.checkCredentials());
 appModule.controller("PostController", ["$rootScope","$scope", "PostService", ($rootScope, $scope, postService) => new Application.Controllers.PostConroller($rootScope, $scope, postService)]);

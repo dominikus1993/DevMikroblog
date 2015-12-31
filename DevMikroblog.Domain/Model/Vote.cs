@@ -9,11 +9,12 @@ namespace DevMikroblog.Domain.Model
         public long Id { get; set; }
         [DataMember]
         public UserVote UserVote { get; set; }
-        [DataMember]
+
         public long? PostId { get; set; }
+
         [DataMember]
         public string UserId { get; set; }
-        [DataMember]
+
         public long? CommentId { get; set; }
 
         public Comment Comment { get; set; }

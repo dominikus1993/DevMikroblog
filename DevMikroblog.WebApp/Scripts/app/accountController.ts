@@ -16,6 +16,15 @@
             this.userName = Constants.getAccountValue();
         }
 
+        public register() {
+            console.log(this.registerData);
+            this.service.register(this.registerData, (data) => {
+                if (data) {
+                    console.log(data);
+                }
+            });
+        }
+
         public login() {
             this.service.login(this.loginData, (data) => {
                 (this.rootScope as any).isLogged = Constants.checkCredentials();

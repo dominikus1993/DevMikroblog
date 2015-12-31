@@ -39,8 +39,10 @@ namespace DevMikroblog.Domain.Model
         [DataMember]
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
 
+        [DataMember]
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
+        [DataMember]
         public ICollection<Vote> Votes { get; set; } = new List<Vote>();
 
     }

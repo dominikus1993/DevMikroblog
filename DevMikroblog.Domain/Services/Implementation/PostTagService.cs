@@ -12,7 +12,7 @@ namespace DevMikroblog.Domain.Services.Implementation
     {
 
         private readonly IPostService _postService;
-        private ITagService _tagService;
+        private readonly ITagService _tagService;
 
         public PostTagService(IPostService postService, ITagService tagService)
         {
@@ -51,5 +51,16 @@ namespace DevMikroblog.Domain.Services.Implementation
 
             return result;
         }
+
+        public Result<bool> DeletePost(long id, string userId)
+        {
+            var postResult = _postService.Read(id);
+            if (postResult.IsSuccess && postResult.Value.AuthorId == userId)
+            {
+                return _postService.Delete(id);
+            }
+            return new Result<bool>();
+        }
+
     }
 }

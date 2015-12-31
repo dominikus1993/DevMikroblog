@@ -15,7 +15,19 @@
         public Rate: number;
         public AuthorId: string;
         public AuthorName: string;
-        public Tags:Tag[];
+        public Tags: Tag[];
+        public Votes:Vote[];
+    }
+
+    export enum UserVote {
+        VoteUp,
+        VoteDown
+    }
+
+    export class Vote {
+        public Id: number;
+        public UserVote: UserVote;
+        public UserId:string;
     }
 
     export class Tag {

@@ -101,6 +101,17 @@ namespace DevMikroblog.Tests.Helpers
             result.Setup(x => x.Read(It.IsAny<long>()))
                 .Returns<long>(id => Result<Post>.WarningWhenNoData(Generator.Posts.SingleOrDefault(post => post.Id == id)));
             result.Setup(x => x.Create(It.IsAny<Post>())).Returns<Post>(x => Result<Post>.WarningWhenNoData(x));
+            result.Setup(x => x.Delete(It.IsAny<long>())).Returns<long>(id => Result<bool>.WarningWhenNoData(Generator.Posts.Any(post => post.Id == id)));
+            result.Setup(x => x.VoteUp(It.IsAny<long>(), It.IsAny<string>()))
+                .Returns<long, string>(
+                    (id, userId) =>
+                        Result<Post>.WarningWhenNoData(
+                            Generator.Posts.SingleOrDefault(x => x.Id == id)));
+            result.Setup(x => x.VoteDown(It.IsAny<long>(), It.IsAny<string>()))
+                .Returns<long, string>(
+                    (id, userId) =>
+                        Result<Post>.WarningWhenNoData(
+                            Generator.Posts.SingleOrDefault(x => x.Id == id)));
             return result;
         }
 
@@ -119,6 +130,7 @@ namespace DevMikroblog.Tests.Helpers
             result.Setup(x => x.CreatePost(It.IsAny<Post>())).Returns<Post>(x => Result<Post>.WarningWhenNoData(x));
             result.Setup(x => x.Posts).Returns(Result<List<Post>>.WarningWhenNoData(Generator.Posts));
             result.Setup(x => x.GetPostById(It.IsAny<long>())).Returns<long>(id => Result<Post>.WarningWhenNoData(Generator.Posts.SingleOrDefault(post => post.Id == id)));
+            result.Setup(x => x.DeletePost(It.IsAny<long>(), It.IsAny<string>())).Returns<long,string>((id, userId) => Result<bool>.WarningWhenNoData(Generator.Posts.SingleOrDefault(x => x.Id == id && x.AuthorId == userId) != null));
             return result;
         }
         public static IPrincipal MockIdentity()

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Hosting;
-using DevMikroblog.Domain.Model;
 using DevMikroblog.Tests.Helpers;
 using DevMikroblog.WebApp.Controllers;
 using DevMikroblog.WebApp.Models;
@@ -68,6 +62,15 @@ namespace DevMikroblog.Tests.Controllers
             var result = _controller.Create(postViewModel);
             Assert.IsTrue(result.IsSuccess);
             Assert.That(result.Value, Is.Not.Null);
+        }
+
+        [Test]
+        public void Delete()
+        {
+            const int id = 1;
+            var result = _controller.Delete(id);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsTrue(result.Value);
         }
     }
 }

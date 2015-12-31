@@ -58,8 +58,12 @@ namespace DevMikroblog.WebApp.Controllers
             return _postTagService.GetPostById(result.Value.Id);
         }
 
-
-
+        [HttpDelete]
+        [Authorize]
+        public Result<bool> Delete(long id)
+        {
+            return _postTagService.DeletePost(id, User.Identity.GetUserId());
+        }
     }
 }
 
