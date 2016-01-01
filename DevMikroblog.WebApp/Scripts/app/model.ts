@@ -4,7 +4,7 @@
         IsWarning: boolean;
         IError: boolean;
         Messages: boolean;
-        Value:T;
+        Value: T;
     }
 
     export class Post {
@@ -16,7 +16,22 @@
         public AuthorId: string;
         public AuthorName: string;
         public Tags: Tag[];
-        public Votes:Vote[];
+        public Votes: Vote[];
+        public Comments: Comment[];
+    }
+
+    export class Comment {
+        public Id: number;
+        public Message: string;
+        public Date: Date;
+        public Rate: number;
+        public AuthorName: string;
+        public AuthorId;
+    }
+
+    export class CommentToAdd {
+        public Message: string;
+        public PostId: number;
     }
 
     export enum UserVote {
@@ -27,15 +42,15 @@
     export class Vote {
         public Id: number;
         public UserVote: UserVote;
-        public UserId:string;
+        public UserId: string;
     }
 
     export class Tag {
         public Id: number;
-        public Name:string;
+        public Name: string;
     }
 
-    export class  PostToAdd {
+    export class PostToAdd {
         public Title: string;
         public Message: string;
     }

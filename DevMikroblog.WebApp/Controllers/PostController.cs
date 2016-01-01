@@ -64,6 +64,12 @@ namespace DevMikroblog.WebApp.Controllers
         {
             return _postTagService.DeletePost(id, User.Identity.GetUserId());
         }
+
+        [HttpGet]
+        public Result<List<Post>> GetPostsByTagName(string tagName)
+        {
+            return _postTagService.GetPostByTagName(tagName);
+        }
     }
 }
 

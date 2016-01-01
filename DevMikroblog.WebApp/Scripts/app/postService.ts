@@ -8,6 +8,7 @@ module Application.Services {
         delete(id: number, callback: (result: Models.Result<boolean>) => void);
         voteUp(postId: number, callback: (result: Models.Result<Models.Post>) => void);
         voteDown(postId: number, callback: (result: Models.Result<Models.Post>) => void);
+        getByTagName(tagName: string, callback: (data: Models.Result<Models.Post[]>) => void) 
     }
 
     export class PostService implements IPostService {
@@ -19,14 +20,24 @@ module Application.Services {
         }
 
         getAllPost(callback: (data: Models.Result<Models.Post[]>) => void) {
-            return this.http.get(Urls.getAllPostUrl).success((data, status) => {
+            return this.http.get(Urls.getAllPostUrl).success((data: Models.Result<Models.Post[]>, status) => {
                 console.assert(status === 200);
-                console.log(data);
-                callback(data as Models.Result<Models.Post[]>);
-                return data as Models.Result<Models.Post[]>;
+                callback(data);
+                return data;
             }).error((error) => {
                 callback(error);
                 return error;
+            });
+        }
+
+        getByTagName(tagName: string, callback: (data: Models.Result<Models.Post[]>) => void) {
+            this.http.get(Urls.getByTagName(tagName)).success((data:Models.Result<Models.Post[]>, status) => {
+                console.assert(status === 200);
+                callback(data);
+                return data;
+            }).error(error => {
+                console.error(error);
+                return error
             });
         }
 

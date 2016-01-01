@@ -62,5 +62,10 @@ namespace DevMikroblog.Domain.Services.Implementation
             return new Result<bool>();
         }
 
+        public Result<List<Post>> GetPostByTagName(string tagName)
+        {
+            return _tagService.GetPostByTagName(tagName);
+        }
+
     }
 }

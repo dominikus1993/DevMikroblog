@@ -10,6 +10,7 @@ module Application.Controllers {
         public rootService: ng.IRootScopeService;
         public posts: Models.Post[];
         public postToAdd: Models.PostToAdd;
+        public tagName:string;
 
         constructor($rootScope: ng.IRootScopeService, $scope: ng.IScope, $service: Services.IPostService) {
             this.scope = $scope;
@@ -25,6 +26,14 @@ module Application.Controllers {
                     this.posts = data.Value.reverse();
                 }
 
+            });
+        }
+
+        public getByTagNam() {
+            this.service.getByTagName(this.tagName, result => {
+                if (result.IsSuccess) {
+                    this.posts = result.Value.reverse();
+                }
             });
         }
 

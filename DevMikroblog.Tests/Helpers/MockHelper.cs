@@ -131,8 +131,17 @@ namespace DevMikroblog.Tests.Helpers
             result.Setup(x => x.Posts).Returns(Result<List<Post>>.WarningWhenNoData(Generator.Posts));
             result.Setup(x => x.GetPostById(It.IsAny<long>())).Returns<long>(id => Result<Post>.WarningWhenNoData(Generator.Posts.SingleOrDefault(post => post.Id == id)));
             result.Setup(x => x.DeletePost(It.IsAny<long>(), It.IsAny<string>())).Returns<long,string>((id, userId) => Result<bool>.WarningWhenNoData(Generator.Posts.SingleOrDefault(x => x.Id == id && x.AuthorId == userId) != null));
+            result.Setup(x => x.GetPostByTagName(It.IsAny<string>())).Returns<string>(tagName => Result<List<Post>>.WarningWhenNoData(Generator.Posts.Where(post => post.Tags.Any(tag => tag.Name == tagName)).ToList()));
             return result;
         }
+
+        public static Mock<ICommentsService> MockCommentService()
+        {
+            var result = new Mock<ICommentsService>();
+            result.Setup(x => x.Create(It.IsAny<Comment>())).Returns<Comment>(comment => Result<Comment>.WarningWhenNoData(comment));
+            return result;
+        } 
+
         public static IPrincipal MockIdentity()
         {
             var claim = new Claim("dominikus1993", "d1u2p3a");

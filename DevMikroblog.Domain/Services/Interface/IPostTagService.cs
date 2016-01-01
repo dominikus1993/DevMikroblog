@@ -10,5 +10,6 @@ namespace DevMikroblog.Domain.Services.Interface
         Result<Post> GetPostById(long id);
         Result<Post> CreatePost(Post post);
         Result<bool> DeletePost(long id, string userId);
+        Result<List<Post>> GetPostByTagName(string tagName);
     }
 }
