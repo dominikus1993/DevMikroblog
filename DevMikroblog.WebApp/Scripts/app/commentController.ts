@@ -36,6 +36,14 @@ module Application.Controllers {
                 }
             });
         }
+
+        public delete(id: number) {
+            this.service.delete(id, (data) => {
+                if (data.IsSuccess && data.Value) {
+                    this.comments = _.without<Models.Comment>(this.comments, this.comments.filter(x => x.Id === id)[0]);
+                }
+            });
+        }
     }
 
 }

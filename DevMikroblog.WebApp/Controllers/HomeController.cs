@@ -14,5 +14,15 @@ namespace DevMikroblog.WebApp.Controllers
 
             return View();
         }
+
+        public ActionResult All()
+        {
+            return PartialView();
+        }
+
+        public ActionResult Tag()
+        {
+            return PartialView();
+        }
     }
 }

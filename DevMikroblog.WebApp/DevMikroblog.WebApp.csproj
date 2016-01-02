@@ -348,10 +348,13 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Views\Home\Tag.cshtml" />
+    <Content Include="Views\Home\All.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Partials\" />
+    <Folder Include="Views\Posts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -377,6 +380,7 @@
     <TypeScriptCompile Include="Scripts\app\postController.ts" />
     <TypeScriptCompile Include="Scripts\app\model.ts" />
     <TypeScriptCompile Include="Scripts\app\postService.ts" />
+    <TypeScriptCompile Include="Scripts\app\routes.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-mocks.d.ts" />

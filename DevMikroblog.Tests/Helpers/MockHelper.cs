@@ -139,6 +139,8 @@ namespace DevMikroblog.Tests.Helpers
         {
             var result = new Mock<ICommentsService>();
             result.Setup(x => x.Create(It.IsAny<Comment>())).Returns<Comment>(comment => Result<Comment>.WarningWhenNoData(comment));
+            result.Setup(x => x.Delete(It.IsAny<long>())).Returns<long>(id => Result<bool>.WarningWhenNoData(Generator.Comments.SingleOrDefault(comment => comment.Id == id) != null));
+            result.Setup(x => x.Read(It.IsAny<long>())).Returns<long>(id => Result<Comment>.WarningWhenNoData(Generator.Comments.SingleOrDefault(comment => comment.Id == id)));
             return result;
         } 
 

@@ -4,20 +4,37 @@
 
 module Application.Controllers {
 
+    export enum PostMode {
+        AllPost,
+        PostByTag
+    }
+
     export class PostConroller {
         public scope: any;
         public service: Services.IPostService;
         public rootService: ng.IRootScopeService;
         public posts: Models.Post[];
         public postToAdd: Models.PostToAdd;
-        public tagName:string;
 
-        constructor($rootScope: ng.IRootScopeService, $scope: ng.IScope, $service: Services.IPostService) {
+        constructor($rootScope: ng.IRootScopeService, $scope: ng.IScope, $service: Services.IPostService, mode: PostMode, tagName: string = null) {
             this.scope = $scope;
             this.rootService = $rootScope;
             this.service = $service;
             this.posts = [];
-            this.getAll();
+            console.log(`${mode} ${tagName}`);
+            this.getByMode(mode, tagName);
+        }
+
+        public getByMode(mode: PostMode, tagName: string = null) {
+            switch (mode) {
+                case PostMode.AllPost:
+                    this.getAll();
+                    break;
+                case PostMode.PostByTag:
+                    this.getByTagName(tagName);
+                    break;
+                default:
+            }
         }
 
         public getAll() {
@@ -29,8 +46,8 @@ module Application.Controllers {
             });
         }
 
-        public getByTagNam() {
-            this.service.getByTagName(this.tagName, result => {
+        public getByTagName(tagName: string) {
+            this.service.getByTagName(tagName, result => {
                 if (result.IsSuccess) {
                     this.posts = result.Value.reverse();
                 }
@@ -70,7 +87,7 @@ module Application.Controllers {
         public voteUp(postId: number) {
             this.service.voteUp(postId, (result) => {
                 if (result.IsSuccess) {
-                   this.posts.filter(x => x.Id === result.Value.Id)[0] = result.Value;
+                    this.posts.filter(x => x.Id === result.Value.Id)[0] = result.Value;
                 }
             });
         }
@@ -83,8 +100,8 @@ module Application.Controllers {
             });
         }
 
-        public postWasVoted(postId:number, userId:string):boolean {
-            return this.posts.filter(post => post.Id === postId &&  post.Votes.filter(vote => vote.UserId === userId).length > 0).length > 0;
+        public postWasVoted(postId: number, userId: string): boolean {
+            return this.posts.filter(post => post.Id === postId && post.Votes.filter(vote => vote.UserId === userId).length > 0).length > 0;
         }
 
     }

@@ -3,6 +3,7 @@
     export interface ICommentService {
         add(commentToAdd: Models.CommentToAdd, callback: (data: Models.Result<Models.Comment>) => void);
         getPostById(postId: number, callback: (data: Models.Result<Models.Post>) => void);
+        delete(commentId: number, callback: (data: Models.Result<boolean>) => void);
     }
 
     export class CommentService implements ICommentService {
@@ -18,6 +19,15 @@
             this.http.get(Urls.getPostById(postId)).success((data: Models.Result<Models.Post>, status) => {
                 console.assert(status === 200);
                 callback(data);
+            });
+        }
+
+        public delete(commentId: number, callback: (data: Models.Result<boolean>) => void) {
+            this.http.get(Urls.deleteCommentUrl(commentId)).success((data: Models.Result<boolean>, status) => {
+                console.assert(status === 200);
+                callback(data);
+            }).error((error) => {
+                console.error(error);
             });
         }
 

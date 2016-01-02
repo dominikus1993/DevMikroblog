@@ -37,5 +37,14 @@ namespace DevMikroblog.Tests.Controllers
             Assert.IsTrue(result.IsSuccess);
             Assert.That(result.Value, Is.Not.Null);
         }
+
+        [Test]
+        public void Delete()
+        {
+            const int id = 1;
+            var result = _controller.Delete(id);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.That(result.Value, Is.True);
+        }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
 using DevMikroblog.Domain.Model;
 using DevMikroblog.Domain.Services.Interface;
 using DevMikroblog.WebApp.Models;
@@ -20,6 +15,7 @@ namespace DevMikroblog.WebApp.Controllers
             _commentsService = commentsService;
         }
 
+        [Authorize]
         [HttpPost]
         public Result<Comment> Create([FromBody]AddCommentViewModel comment)
         {
@@ -31,6 +27,24 @@ namespace DevMikroblog.WebApp.Controllers
                 PostId = comment.PostId,
             };
             return _commentsService.Create(commentToAdd);
-        } 
+        }
+
+        [Authorize]
+        [HttpDelete]
+        public Result<bool> Delete(long id)
+        {
+            return IsOwnerOrAdministrator(id) ? _commentsService.Delete(id) : new Result<bool>();
+        }
+
+        public bool IsOwnerOrAdministrator(long id)
+        {
+            var comment = _commentsService.Read(id);
+            if (comment.IsSuccess)
+            {
+                return comment.Value.AuthorId == User.Identity.GetUserId() || User.IsInRole(UserRole.Administrator.ToString());
+            }
+            return false;
+        }
+
     }
 }

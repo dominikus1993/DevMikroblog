@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 
 namespace DevMikroblog.WebApp.Controllers
 {
+    [RoutePrefix("api/vote")]
     public class VoteController : ApiController
     {
         private readonly IPostService _postService;

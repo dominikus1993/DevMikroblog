@@ -37,7 +37,7 @@ module Application.Services {
                 return data;
             }).error(error => {
                 console.error(error);
-                return error
+                return error;
             });
         }
 
