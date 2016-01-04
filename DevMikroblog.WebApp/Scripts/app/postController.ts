@@ -6,7 +6,8 @@ module Application.Controllers {
 
     export enum PostMode {
         AllPost,
-        PostByTag
+        PostsByTag,
+        PostsByAuthorName,
     }
 
     export class PostConroller {
@@ -16,22 +17,25 @@ module Application.Controllers {
         public posts: Models.Post[];
         public postToAdd: Models.PostToAdd;
 
-        constructor($rootScope: ng.IRootScopeService, $scope: ng.IScope, $service: Services.IPostService, mode: PostMode, tagName: string = null) {
+        constructor($rootScope: ng.IRootScopeService, $scope: ng.IScope, $service: Services.IPostService, mode: PostMode, searchPattern?: string) {
             this.scope = $scope;
             this.rootService = $rootScope;
             this.service = $service;
             this.posts = [];
-            console.log(`${mode} ${tagName}`);
-            this.getByMode(mode, tagName);
+            console.log(`${mode} ${searchPattern}`);
+            this.getByMode(mode, searchPattern);
         }
 
-        public getByMode(mode: PostMode, tagName: string = null) {
+        public getByMode(mode: PostMode, searchPattern?: string) {
             switch (mode) {
                 case PostMode.AllPost:
                     this.getAll();
                     break;
-                case PostMode.PostByTag:
-                    this.getByTagName(tagName);
+                case PostMode.PostsByTag:
+                    this.getByTagName(searchPattern);
+                    break;
+                case PostMode.PostsByAuthorName:
+                    this.getByAuthorName(searchPattern);
                     break;
                 default:
             }
@@ -48,6 +52,14 @@ module Application.Controllers {
 
         public getByTagName(tagName: string) {
             this.service.getByTagName(tagName, result => {
+                if (result.IsSuccess) {
+                    this.posts = result.Value.reverse();
+                }
+            });
+        }
+
+        public getByAuthorName(authorName: string) {
+            this.service.getByAuthorName(authorName, result => {
                 if (result.IsSuccess) {
                     this.posts = result.Value.reverse();
                 }

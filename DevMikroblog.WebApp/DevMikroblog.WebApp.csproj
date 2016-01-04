@@ -350,6 +350,8 @@
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Home\Tag.cshtml" />
     <Content Include="Views\Home\All.cshtml" />
+    <Content Include="Views\Home\Author.cshtml" />
+    <Content Include="Views\Home\PostById.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

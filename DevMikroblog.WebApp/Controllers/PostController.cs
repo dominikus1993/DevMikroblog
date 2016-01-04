@@ -70,6 +70,12 @@ namespace DevMikroblog.WebApp.Controllers
         {
             return _postTagService.GetPostByTagName(tagName);
         }
+
+        [HttpGet]
+        public Result<List<Post>> GetPostsByAuthorName(string authorName)
+        {
+            return _postTagService.GetPostByAuthorName(authorName);
+        }
     }
 }
 

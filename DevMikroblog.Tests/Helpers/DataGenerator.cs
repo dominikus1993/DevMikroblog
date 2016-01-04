@@ -33,12 +33,12 @@ namespace DevMikroblog.Tests.Helpers
         {
             Posts = new List<Post>()
             {
-                new Post(){Id = 1,Date = DateTime.Now,Title = "A",Message = "B",AuthorId = "d1u2p3a",Rate = 5,Tags = Tags,Author = Users[0]},
-                new Post(){Id = 2,Date = DateTime.MaxValue,Title = "A",Message = "B",AuthorId = "d1u2p3a",Rate = 10,Tags = Tags,Author = Users[0]},
-                new Post(){Id = 3,Date = DateTime.Now,Title = "A",Message = "B",AuthorId = "d1u2p3a",Rate = 44545,Tags = Tags,Author = Users[0]},
-                new Post(){Id = 4,Date = DateTime.Now,Title = "A",Message = "B",AuthorId = "d1u2p3a",Rate = 44,Tags = Tags,Author = Users[0]},
-                new Post(){Id = 5,Date = DateTime.Now,Title = "A",Message = "B",AuthorId = "d1u2p3a",Rate = -555,Tags = Tags,Author = Users[0]},
-                new Post(){Id = 6,Date = DateTime.Now,Title = "A",Message = "B",AuthorId = "d1u2p3a4d5u6p7a",Rate = -11111,Tags = Tags,Author = Users[1]}
+                new Post(){Id = 1,Date = DateTime.Now,Title = "A",Message = "B",AuthorId = "d1u2p3a", AuthorName = "d1u2p3a", Rate = 5,Tags = Tags,Author = Users[0]},
+                new Post(){Id = 2,Date = DateTime.MaxValue,Title = "A",Message = "B",AuthorId = "d1u2p3a", AuthorName = "d1u2p3a",Rate = 10,Tags = Tags,Author = Users[0]},
+                new Post(){Id = 3,Date = DateTime.Now,Title = "A",Message = "B",AuthorId = "d1u2p3a", AuthorName = "d1u2p3a",Rate = 44545,Tags = Tags,Author = Users[0]},
+                new Post(){Id = 4,Date = DateTime.Now,Title = "A",Message = "B",AuthorId = "d1u2p3a", AuthorName = "d1u2p3a",Rate = 44,Tags = Tags,Author = Users[0]},
+                new Post(){Id = 5,Date = DateTime.Now,Title = "A",Message = "B",AuthorId = "d1u2p3a", AuthorName = "d1u2p3a",Rate = -555,Tags = Tags,Author = Users[0]},
+                new Post(){Id = 6,Date = DateTime.Now,Title = "A",Message = "B",AuthorId = "d1u2p3a4d5u6p7a", AuthorName = "d1u2p3a4d5u6p7a",Rate = -11111,Tags = Tags,Author = Users[1]}
             };
         }
 

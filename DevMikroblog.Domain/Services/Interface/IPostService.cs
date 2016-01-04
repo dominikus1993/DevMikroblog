@@ -13,5 +13,6 @@ namespace DevMikroblog.Domain.Services.Interface
         Result<Post> VoteUp(long id, string userId);
         Result<Post> VoteDown(long id, string userId);
         Result<List<Post>> GetPostsByUser(string userId);
+        Result<List<Post>> Read(string authorName);
     }
 }

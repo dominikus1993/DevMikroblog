@@ -132,5 +132,25 @@ namespace DevMikroblog.Tests.Services
             Assert.IsTrue(result.IsSuccess);
             Assert.IsEmpty(result.Value);
         }
+
+        [Test]
+        public void GetPostByAuthorName()
+        {
+            const string authorName = "d1u2p3a";
+            var result = _service.Read(authorName);
+            Assert.That(result, Is.Not.Null);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsNotEmpty(result.Value);
+        }
+
+        [Test]
+        public void GetPostByInvalidAuthorName()
+        {
+            const string authorName = "d1u2p3a111111111";
+            var result = _service.Read(authorName);
+            Assert.That(result, Is.Not.Null);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsEmpty(result.Value);
+        }
     }
 }

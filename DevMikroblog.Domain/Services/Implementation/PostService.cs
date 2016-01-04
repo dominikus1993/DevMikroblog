@@ -88,5 +88,11 @@ namespace DevMikroblog.Domain.Services.Implementation
             var queryResult = _postRepository.Posts.Where(x => x.AuthorId == userId).ToList();
             return Result<List<Post>>.WarningWhenNoData(queryResult);
         }
+
+        public Result<List<Post>> Read(string authorName)
+        {
+            var queryResult = _postRepository.Read(authorName);
+            return Result<List<Post>>.WarningWhenNoData(queryResult);
+        }
     }
 }

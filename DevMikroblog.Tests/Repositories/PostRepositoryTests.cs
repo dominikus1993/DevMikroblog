@@ -43,6 +43,24 @@ namespace DevMikroblog.Tests.Repositories
         }
 
         [Test]
+        public void GetPostByAuthorName()
+        {
+            const string authorName = "d1u2p3a";
+            var result = _postRepository.Read(authorName);
+            Assert.That(result, Is.Not.Null);
+            Assert.IsNotEmpty(result);
+        }
+
+        [Test]
+        public void GetPostByInvalidAuthorName()
+        {
+            const string authorName = "d1u2p3a11111";
+            var result = _postRepository.Read(authorName);
+            Assert.That(result, Is.Not.Null);
+            Assert.IsEmpty(result);
+        }
+
+        [Test]
         public void AddPost()
         {
             var post = new Post()

@@ -14,13 +14,14 @@ module Application.Controllers {
         private scope: ng.IScope;
         private service : Services.ICommentService;
 
-        constructor($rootScope: ng.IRootScopeService, $scope: angular.IScope, $service: Services.ICommentService) {
+        constructor($rootScope: ng.IRootScopeService, $scope: angular.IScope, $service: Services.ICommentService, id:number) {
             this.rootScope = $rootScope;
             this.scope = $scope;
             this.service = $service;
+            this.getPostById(id);
         }
 
-        public getPostById(postId:number) {
+        public getPostById(postId: number) {           
             this.service.getPostById(postId, result => {
                 if (result.IsSuccess) {
                     this.post = result.Value;

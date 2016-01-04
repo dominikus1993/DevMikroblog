@@ -67,5 +67,9 @@ namespace DevMikroblog.Domain.Services.Implementation
             return _tagService.GetPostByTagName(tagName);
         }
 
+        public Result<List<Post>> GetPostByAuthorName(string authorName)
+        {
+            return _postService.Read(authorName);
+        }
     }
 }

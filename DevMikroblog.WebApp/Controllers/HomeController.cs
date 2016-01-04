@@ -20,7 +20,17 @@ namespace DevMikroblog.WebApp.Controllers
             return PartialView();
         }
 
+        public ActionResult PostById()
+        {
+            return PartialView();
+        }
+
         public ActionResult Tag()
+        {
+            return PartialView();
+        }
+
+        public ActionResult Author()
         {
             return PartialView();
         }

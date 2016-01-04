@@ -64,6 +64,7 @@ namespace DevMikroblog.Tests.Helpers
             result.Setup(x => x.Create(It.IsAny<Post>())).Returns(Generator.Posts.First());
             result.Setup(x => x.Vote(It.IsAny<long>(), It.IsAny<Vote>(), It.IsAny<Func<long, long>>()))
                 .Returns<long, Vote, Func<long, long>>((id, vote, func) => Generator.Posts.SingleOrDefault(post => post.Id == id));
+            result.Setup(x => x.Read(It.IsAny<string>())).Returns<string>(authorName => Generator.Posts.Where(post => post.AuthorName == authorName).ToList());
             return result;
         }
 
@@ -112,6 +113,11 @@ namespace DevMikroblog.Tests.Helpers
                     (id, userId) =>
                         Result<Post>.WarningWhenNoData(
                             Generator.Posts.SingleOrDefault(x => x.Id == id)));
+            result.Setup(x => x.Read(It.IsAny<string>()))
+                .Returns<string>(
+                    authorName =>
+                        Result<List<Post>>.WarningWhenNoData(
+                            Generator.Posts.Where(post => post.AuthorName == authorName).ToList()));
             return result;
         }
 
@@ -130,8 +136,9 @@ namespace DevMikroblog.Tests.Helpers
             result.Setup(x => x.CreatePost(It.IsAny<Post>())).Returns<Post>(x => Result<Post>.WarningWhenNoData(x));
             result.Setup(x => x.Posts).Returns(Result<List<Post>>.WarningWhenNoData(Generator.Posts));
             result.Setup(x => x.GetPostById(It.IsAny<long>())).Returns<long>(id => Result<Post>.WarningWhenNoData(Generator.Posts.SingleOrDefault(post => post.Id == id)));
-            result.Setup(x => x.DeletePost(It.IsAny<long>(), It.IsAny<string>())).Returns<long,string>((id, userId) => Result<bool>.WarningWhenNoData(Generator.Posts.SingleOrDefault(x => x.Id == id && x.AuthorId == userId) != null));
+            result.Setup(x => x.DeletePost(It.IsAny<long>(), It.IsAny<string>())).Returns<long, string>((id, userId) => Result<bool>.WarningWhenNoData(Generator.Posts.SingleOrDefault(x => x.Id == id && x.AuthorId == userId) != null));
             result.Setup(x => x.GetPostByTagName(It.IsAny<string>())).Returns<string>(tagName => Result<List<Post>>.WarningWhenNoData(Generator.Posts.Where(post => post.Tags.Any(tag => tag.Name == tagName)).ToList()));
+            result.Setup(x => x.GetPostByAuthorName(It.IsAny<string>())).Returns<string>(authorName => Result<List<Post>>.WarningWhenNoData( Generator.Posts.Where(post => post.AuthorName == authorName).ToList()));
             return result;
         }
 
@@ -142,7 +149,7 @@ namespace DevMikroblog.Tests.Helpers
             result.Setup(x => x.Delete(It.IsAny<long>())).Returns<long>(id => Result<bool>.WarningWhenNoData(Generator.Comments.SingleOrDefault(comment => comment.Id == id) != null));
             result.Setup(x => x.Read(It.IsAny<long>())).Returns<long>(id => Result<Comment>.WarningWhenNoData(Generator.Comments.SingleOrDefault(comment => comment.Id == id)));
             return result;
-        } 
+        }
 
         public static IPrincipal MockIdentity()
         {

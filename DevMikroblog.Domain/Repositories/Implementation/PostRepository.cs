@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -19,7 +20,17 @@ namespace DevMikroblog.Domain.Repositories.Implementation
             return func(Context.Posts);
         }
 
-        public IQueryable<Post> Posts => Context.Posts.Include(post => post.Tags);
+        public IQueryable<Post> Posts => Context.Posts.Include(post => post.Tags).Include(x => x.Comments).Include(x => x.Votes);
+
+        public List<Post> Read(string authorName)
+        {
+            return
+                Context.Posts.Include(post => post.Tags)
+                    .Include(x => x.Comments)
+                    .Include(x => x.Votes)
+                    .Where(post => post.AuthorName == authorName)
+                    .ToList();
+        }
 
         public Post Create(Post entity)
         {
@@ -28,7 +39,10 @@ namespace DevMikroblog.Domain.Repositories.Implementation
 
         public Post Read(long id)
         {
-            return Context.Posts.Include(post => post.Tags).SingleOrDefault(post => post.Id == id);
+            return Context.Posts.Include(post => post.Tags)
+                .Include(x => x.Comments)
+                .Include(x => x.Votes)
+                .SingleOrDefault(post => post.Id == id);
         }
 
         public bool Update(Post entity)

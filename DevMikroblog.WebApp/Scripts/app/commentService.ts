@@ -16,7 +16,7 @@
         }
 
         public getPostById(postId: number, callback: (data: Models.Result<Models.Post>) => void) {
-            this.http.get(Urls.getPostById(postId)).success((data: Models.Result<Models.Post>, status) => {
+            this.http.get(Urls.getPostByIdUrl(postId)).success((data: Models.Result<Models.Post>, status) => {
                 console.assert(status === 200);
                 callback(data);
             });
