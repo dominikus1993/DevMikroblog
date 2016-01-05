@@ -16,6 +16,7 @@ namespace DevMikroblog.WebApp.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("post/{postId}/voteup")]
         public Result<Post> PostVoteUp(long postId)
         {
@@ -24,6 +25,7 @@ namespace DevMikroblog.WebApp.Controllers
 
 
         [HttpGet]
+        [Authorize]
         [Route("post/{postId}/votedown")]
         public Result<Post> PostVoteDown(long postId)
         {

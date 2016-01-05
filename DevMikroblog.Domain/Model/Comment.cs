@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using static System.DateTime;
 
 namespace DevMikroblog.Domain.Model
 {
 
-    [DataContract(IsReference = true)]
+    [DataContract]
     public class Comment
     {
         [DataMember]
@@ -15,7 +16,7 @@ namespace DevMikroblog.Domain.Model
         public string Message { get; set; }
 
         [DataMember]
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = Now;
 
         [DataMember]
         public long Rate { get; set; }

@@ -14,20 +14,10 @@ namespace DevMikroblog.Domain.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DevMikroblog.Domain.DatabaseContext.Implementation.ApplicationDbContext context)
+        protected override void Seed(DatabaseContext.Implementation.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
 
             context.ApplicationUsers.AddOrUpdate(new ApplicationUser
             {
@@ -39,12 +29,27 @@ namespace DevMikroblog.Domain.Migrations
                 UserName = "dominikus1910@gmail.com"
             });
 
-            context.Posts.AddOrUpdate(new Post()
+            context.ApplicationUsers.AddOrUpdate(new ApplicationUser
             {
-                Message = "Siema",
-                Title = "asdasdas",
-                Rate = 1
+                Email = "dominik.kotecki1@gmail.com",
+                EmailConfirmed = false,
+                PasswordHash = "ABkQmlndCCezemrbeUa9eAfiIN1Hp79Cg+xmwNtAfBlO9Qama7v72VnZier1yUR1bA==",
+                SecurityStamp = "1a44df0f-983d-45a8-b792-79826c3713b9",
+                PhoneNumber = null,
+                UserName = "dominik.kotecki1@gmail.com"
             });
+
+
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data. E.g.
+            //
+            //    context.People.AddOrUpdate(
+            //      p => p.FullName,
+            //      new Person { FullName = "Andrew Peters" },
+            //      new Person { FullName = "Brice Lambson" },
+            //      new Person { FullName = "Rowan Miller" }
+            //    );
+            //
         }
     }
 }

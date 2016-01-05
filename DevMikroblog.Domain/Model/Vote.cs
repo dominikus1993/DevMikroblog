@@ -2,7 +2,7 @@
 
 namespace DevMikroblog.Domain.Model
 {
-    [DataContract(IsReference = true)]
+    [DataContract]
     public class Vote
     {
         [DataMember]

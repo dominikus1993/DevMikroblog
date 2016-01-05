@@ -97,9 +97,15 @@ module Application.Controllers {
         }
 
         public voteUp(postId: number) {
+            console.log(postId);
             this.service.voteUp(postId, (result) => {
                 if (result.IsSuccess) {
-                    this.posts.filter(x => x.Id === result.Value.Id)[0] = result.Value;
+                    this.posts = this.posts.map(post => {
+                        if (result.Value.Id === post.Id) {
+                            return result.Value;
+                        }
+                        return post;
+                    });
                 }
             });
         }
@@ -114,6 +120,11 @@ module Application.Controllers {
 
         public postWasVoted(postId: number, userId: string): boolean {
             return this.posts.filter(post => post.Id === postId && post.Votes.filter(vote => vote.UserId === userId).length > 0).length > 0;
+        }
+
+        public userVotedUp(postId: number, userId: string):boolean {
+            const post = _.find(this.posts, x => x.Id === postId);
+            return post.Votes.filter(vote => vote.UserId === userId).length > 0;
         }
 
     }

@@ -30,10 +30,13 @@ namespace DevMikroblog.WebApp.Infrastructure
 
         private void AddBindings()
         {
+            _kernel.Bind<IPostTagService>().To<PostTagService>();
             _kernel.Bind<IPostService>().To<PostService>();
             _kernel.Bind<ITagService>().To<TagService>();
+            _kernel.Bind<ICommentsService>().To<CommentsService>();
             _kernel.Bind<ITagRepository>().To<TagRepository>();
             _kernel.Bind<IPostRepository>().To<PostRepository>();
+            _kernel.Bind<ICommentsRepository>().To<CommentsRepository>();
             _kernel.Bind<IDbContext>().To<ApplicationDbContext>();
         }
     }

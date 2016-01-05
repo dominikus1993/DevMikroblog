@@ -10,7 +10,7 @@ module Application.Controllers {
         public comments: Models.Comment[];
         public post: Models.Post;
 
-        private  rootScope: ng.IRootScopeService;
+        private rootScope: ng.IRootScopeService;
         private scope: ng.IScope;
         private service : Services.ICommentService;
 
@@ -25,14 +25,17 @@ module Application.Controllers {
             this.service.getPostById(postId, result => {
                 if (result.IsSuccess) {
                     this.post = result.Value;
-                    this.comments = result.Value.Comments;
+                    this.comments = result.Value.Comments.reverse();
                 }
             });
         }
 
         public add() {
+            this.commentToAdd.PostId = this.post.Id;
             this.service.add(this.commentToAdd, result => {
+                console.log("Siema");
                 if (result.IsSuccess) {
+                    console.log(this.comments);
                     this.comments = [result.Value].concat(this.comments);
                 }
             });

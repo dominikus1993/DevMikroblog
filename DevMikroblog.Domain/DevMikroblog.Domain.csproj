@@ -59,9 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseContext\Implementation\ApplicationDbContext.cs" />
-    <Compile Include="Migrations\201512191500281_First.cs" />
-    <Compile Include="Migrations\201512191500281_First.Designer.cs">
-      <DependentUpon>201512191500281_First.cs</DependentUpon>
+    <Compile Include="Migrations\201601052232232_restore.cs" />
+    <Compile Include="Migrations\201601052232232_restore.Designer.cs">
+      <DependentUpon>201601052232232_restore.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\UserRole.cs" />
@@ -109,8 +109,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512191500281_First.resx">
-      <DependentUpon>201512191500281_First.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201601052232232_restore.resx">
+      <DependentUpon>201601052232232_restore.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

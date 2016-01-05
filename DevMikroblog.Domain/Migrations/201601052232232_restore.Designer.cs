@@ -7,13 +7,13 @@ namespace DevMikroblog.Domain.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class First : IMigrationMetadata
+    public sealed partial class restore : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(First));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(restore));
         
         string IMigrationMetadata.Id
         {
-            get { return "201512191500281_First"; }
+            get { return "201601052232232_restore"; }
         }
         
         string IMigrationMetadata.Source

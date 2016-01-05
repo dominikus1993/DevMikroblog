@@ -16,35 +16,38 @@
     </form>
 </div>
 
-<div class="row">
-    <article class="col-md-12" ng-repeat="post in pc.posts">
-        <div class="col-md-2 col-sm-2 hidden-xs">
-            <figure class="thumbnail">
-                <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
-                <figcaption class="text-center"><a href="#!/Author/{{post.AuthorName}}">{{post.AuthorName}}</a></figcaption>
-            </figure>
-        </div>
-        <div class="col-md-10 col-sm-10">
-            <div class="panel panel-default arrow left">
-                <div class="panel-body">
-                    <header class="text-left">
-                        <div>
-                            <span class="text-left"><i class="fa fa-user"></i>{{post.Title}}</span>
-                            <span class="text-right"><i class="fa fa-user"></i>{{post.Title}}</span>
-                        </div>
-                        <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> {{post.Date}}</time>
-                    </header>
-                    <div class="text-left">
-                        <p>
-                            {{post.Message}}
-                        </p>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<div class="container" ng-repeat="post in pc.posts">
+    <div class="col-sm-12">
+        <div class="panel panel-white post panel-shadow">
+            <div class="post-heading">
+                <div class="pull-left image">
+                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                </div>
+                <div class="pull-left meta">
+                    <div class="title h5">
+                        <a href="#!/Author/{{post.AuthorName}}"><b>{{post.AuthorName}}</b></a>
+                        dodał wpis.
                     </div>
-                    <p class="text-right">
-                        <a href="#" class="btn btn-default btn-sm" ng-click="pc.delete(post.Id)" ng-show="pc.isOwner(post.AuthorName)"><i class="fa fa-reply"></i> Usuń</a>
-                        <a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a>
-                    </p>
+                    <h6 class="text-muted time">1 minute ago</h6>
+                </div>
+            </div>
+            <div class="post-description">
+                <p>{{post.Message}}</p>
+                <div class="stats">
+                    <a href="" class="btn btn-default stat-item" ng-click="pc.userVotedUp(post.Id, post.AuthorId) || pc.voteUp(post.Id)"  ng-disabled="pc.userVotedUp(post.Id, post.AuthorId)">
+                        <i class="fa fa-thumbs-up icon"></i>{{post.Rate}}
+                    </a>
+                    <a href="#!/Post/{{post.Id}}" class="btn btn-default stat-item">
+                        <i class="fa fa-share icon"></i>Wejdź
+                    </a>
+                    <a href="" onclick="confirm('Napewno chcesz usunąć swój cenny wpis?')" ng-click="pc.delete(post.Id)"  ng-show="pc.isOwner(post.AuthorName)" class="btn btn-default stat-item">
+                        <i class="glyphicon glyphicon-remove icon"></i>Usuń
+                    </a>
                 </div>
             </div>
         </div>
-    </article>
+    </div>
 </div>
+
+

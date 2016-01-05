@@ -67,6 +67,7 @@ namespace DevMikroblog.Domain.Services.Implementation
                 UserVote = UserVote.VoteUp
             };
             var queryResult = _postRepository.Vote(id, vote, rate => rate + 1);
+            _postRepository.SaveChanges();
             return Result<Post>.WarningWhenNoData(queryResult);
 
         }
