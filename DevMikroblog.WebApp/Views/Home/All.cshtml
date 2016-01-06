@@ -29,13 +29,13 @@
                         <a href="#!/Author/{{post.AuthorName}}"><b>{{post.AuthorName}}</b></a>
                         dodał wpis.
                     </div>
-                    <h6 class="text-muted time">1 minute ago</h6>
+                    <h6 class="text-muted time">{{pc.dateAgo(post.Date)}}</h6>
                 </div>
             </div>
             <div class="post-description">
                 <p>{{post.Message}}</p>
                 <div class="stats">
-                    <a href="" class="btn btn-default stat-item" ng-click="pc.userVotedUp(post.Id, post.AuthorId) || pc.voteUp(post.Id)"  ng-disabled="pc.userVotedUp(post.Id, post.AuthorId)">
+                    <a href="" class="btn btn-default stat-item" ng-click="(pc.userVotedUp(post.Id, post.AuthorId) || !$root.isLogged) || pc.voteUp(post.Id)"  ng-disabled="(pc.userVotedUp(post.Id, post.AuthorId) || !$root.isLogged)">
                         <i class="fa fa-thumbs-up icon"></i>{{post.Rate}}
                     </a>
                     <a href="#!/Post/{{post.Id}}" class="btn btn-default stat-item">

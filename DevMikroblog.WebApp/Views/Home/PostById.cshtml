@@ -11,7 +11,7 @@
                         <a href="#!/Author/{{cc.post.AuthorName}}"><b>{{cc.post.AuthorName}}</b></a>
                         dodał wpis.
                     </div>
-                    <h6 class="text-muted time">1 minute ago</h6>
+                    <h6 class="text-muted time">{{cc.dateAgo(cc.post.Date)}}</h6>
                 </div>
             </div>
             <div class="post-description">
@@ -25,8 +25,8 @@
                     </a>
                 </div>
             </div>
-            <div class="post-footer" ng-show="$root.isLogged">
-                <div class="input-group">
+            <div class="post-footer">
+                <div class="input-group" ng-show="$root.isLogged">
                     <input class="form-control" ng-model="cc.commentToAdd.Message" name="comment" placeholder="Dodaj komentarz" type="text" required>
                     <span class="input-group-addon">
                         <a href="" ng-click="cc.add()"><i class="fa fa-edit"></i></a>
@@ -40,7 +40,7 @@
                         <div class="comment-body">
                             <div class="comment-heading">
                                 <h4 class="user">{{comment.AuthorName}}</h4>
-                                <h5 class="time">5 minutes ago</h5>
+                                <h5 class="time">{{cc.dateAgo(comment.Date)}}</h5>
                             </div>
                             <p>{{comment.Message}}</p>
                         </div>

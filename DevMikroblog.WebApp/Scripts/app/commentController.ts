@@ -25,7 +25,7 @@ module Application.Controllers {
             this.service.getPostById(postId, result => {
                 if (result.IsSuccess) {
                     this.post = result.Value;
-                    this.comments = result.Value.Comments.reverse();
+                    this.comments = result.Value.Comments;
                 }
             });
         }
@@ -33,10 +33,9 @@ module Application.Controllers {
         public add() {
             this.commentToAdd.PostId = this.post.Id;
             this.service.add(this.commentToAdd, result => {
-                console.log("Siema");
                 if (result.IsSuccess) {
                     console.log(this.comments);
-                    this.comments = [result.Value].concat(this.comments);
+                    this.comments = this.comments.concat([result.Value]);
                 }
             });
         }
@@ -47,6 +46,10 @@ module Application.Controllers {
                     this.comments = _.without<Models.Comment>(this.comments, this.comments.filter(x => x.Id === id)[0]);
                 }
             });
+        }
+
+        public dateAgo(date: string) {
+            return Utils.DateUtils.dateAgo(new Date(date));
         }
     }
 

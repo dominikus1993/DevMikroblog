@@ -16,7 +16,7 @@ namespace DevMikroblog.Domain.Model
         public string Message { get; set; }
 
         [DataMember]
-        public DateTime Date { get; set; } = Now;
+        public DateTime Date { get; set; } = Now.ToUniversalTime();
 
         [DataMember]
         public long Rate { get; set; }

@@ -44,7 +44,10 @@ module Application.Controllers {
         public getAll() {
             this.service.getAllPost((data) => {
                 if (data.IsSuccess) {
-                    this.posts = data.Value.reverse();
+                    this.posts = data.Value.reverse().map(post => {
+                        post.Message = Utils.TagUtils.parseTag(post.Message);
+                        return post;
+                    });
                 }
 
             });
@@ -125,6 +128,10 @@ module Application.Controllers {
         public userVotedUp(postId: number, userId: string):boolean {
             const post = _.find(this.posts, x => x.Id === postId);
             return post.Votes.filter(vote => vote.UserId === userId).length > 0;
+        }
+
+        public dateAgo(date:string) {
+            return Utils.DateUtils.dateAgo(new Date(date));
         }
 
     }
