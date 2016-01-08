@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using DevMikroblog.Domain.Model;
 using DevMikroblog.Domain.Services.Implementation;
 using DevMikroblog.Domain.Services.Interface;
@@ -112,6 +113,45 @@ namespace DevMikroblog.Tests.Services
             Assert.That(result, Is.Not.Null);
             Assert.IsTrue(result.IsSuccess);
             Assert.IsEmpty(result.Value);
+        }
+
+        [Test]
+        public void UpdatePost()
+        {
+            var post = new Post()
+            {
+                Id = 1,
+                Title = string.Empty,
+                Message = string.Empty
+            };
+            var result = _service.UpdatePost(post, _data.Posts.First(x => x.Id ==post.Id).AuthorId);
+            Assert.IsTrue(result.Value);
+        }
+
+        [Test]
+        public void UpdatePostByInvalidId()
+        {
+            var post = new Post()
+            {
+                Id = 13345,
+                Title = string.Empty,
+                Message = string.Empty
+            };
+            var result = _service.UpdatePost(post, _data.Posts.FirstOrDefault(x => x.Id == post.Id)?.AuthorId);
+            Assert.IsFalse(result.Value);
+        }
+
+        [Test]
+        public void UpdatePostByInvalidAuthorName()
+        {
+            var post = new Post()
+            {
+                Id = 1,
+                Title = string.Empty,
+                Message = string.Empty
+            };
+            var result = _service.UpdatePost(post, "");
+            Assert.IsFalse(result.Value);
         }
     }
 }

@@ -43,6 +43,13 @@ namespace DevMikroblog.Domain.Services.Implementation
             return Result<bool>.WarningWhenNoData(queryResult);
         }
 
+        public Result<bool> UpdateWithTags(Post post)
+        {
+            bool queryResult = _postRepository.UpdateWithTags(post);
+            _postRepository.SaveChanges();
+            return Result<bool>.WarningWhenNoData(queryResult);
+        }
+
         public Result<Post> Create(Post post)
         {
 

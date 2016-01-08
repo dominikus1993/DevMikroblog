@@ -8,7 +8,7 @@ using DevMikroblog.Domain.Services.Interface;
 
 namespace DevMikroblog.Domain.Services.Implementation
 {
-    public class PostTagService:IPostTagService
+    public class PostTagService : IPostTagService
     {
 
         private readonly IPostService _postService;
@@ -50,6 +50,30 @@ namespace DevMikroblog.Domain.Services.Implementation
             }
 
             return result;
+        }
+
+        public Result<bool> UpdatePost(Post postToUpdate, string userId)
+        {
+            var post = _postService.Read(postToUpdate.Id);
+            var tags = _tagService.ParseTags(postToUpdate.Message);
+            Result<bool> result;
+            if (post.IsSuccess && post.Value.AuthorId == userId )
+            {
+                postToUpdate = new Post()
+                {
+                    Id = postToUpdate.Id,
+                    Title = postToUpdate.Title,
+                    Message = postToUpdate.Message,
+                    Tags = tags.Value
+                };
+                result = _postService.UpdateWithTags(postToUpdate);
+            }
+            else
+            {
+                result = new Result<bool>();
+            }
+            return result;
+
         }
 
         public Result<bool> DeletePost(long id, string userId)

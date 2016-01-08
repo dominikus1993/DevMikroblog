@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevMikroblog.Domain.Model;
 
 namespace DevMikroblog.Domain.Services.Interface
@@ -8,6 +9,7 @@ namespace DevMikroblog.Domain.Services.Interface
         Result<List<Post>> Posts { get; }
         Result<Post> Read(long id);
         Result<bool> Update(Post post);
+        Result<bool> UpdateWithTags(Post post);
         Result<Post> Create(Post post);
         Result<bool> Delete(long id);
         Result<Post> VoteUp(long id, string userId);

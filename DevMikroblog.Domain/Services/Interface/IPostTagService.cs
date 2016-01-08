@@ -12,5 +12,6 @@ namespace DevMikroblog.Domain.Services.Interface
         Result<bool> DeletePost(long id, string userId);
         Result<List<Post>> GetPostByTagName(string tagName);
         Result<List<Post>> GetPostByAuthorName(string authorName);
+        Result<bool> UpdatePost(Post postToUpdate, string userId);
     }
 }

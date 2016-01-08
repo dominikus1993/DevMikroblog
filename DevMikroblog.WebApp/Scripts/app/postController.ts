@@ -56,7 +56,10 @@ module Application.Controllers {
         public getByTagName(tagName: string) {
             this.service.getByTagName(tagName, result => {
                 if (result.IsSuccess) {
-                    this.posts = result.Value.reverse();
+                    this.posts = result.Value.reverse().map(post => {
+                        post.Message = Utils.TagUtils.parseTag(post.Message);
+                        return post;
+                    });
                 }
             });
         }
@@ -64,16 +67,24 @@ module Application.Controllers {
         public getByAuthorName(authorName: string) {
             this.service.getByAuthorName(authorName, result => {
                 if (result.IsSuccess) {
-                    this.posts = result.Value.reverse();
+                    this.posts = result.Value.reverse().map(post => {
+                        post.Message = Utils.TagUtils.parseTag(post.Message);
+                        return post;
+                    });
                 }
             });
         }
 
         public add() {
-            if (this.postToAdd && this.postToAdd.Message && this.postToAdd.Title) {
+            if (this.postToAdd) {
                 this.service.add(this.postToAdd, (data) => {
                     if (data.IsSuccess) {
-                        this.posts = [data.Value].concat(this.posts);
+                        this.posts = [data.Value].concat(this.posts).map(post => {
+                            if (data.Value.Id === post.Id) {
+                                post.Message = Utils.TagUtils.parseTag(post.Message);
+                            }
+                            return post;
+                        });
                     }
                 });
             } else {
@@ -125,12 +136,12 @@ module Application.Controllers {
             return this.posts.filter(post => post.Id === postId && post.Votes.filter(vote => vote.UserId === userId).length > 0).length > 0;
         }
 
-        public userVotedUp(postId: number, userId: string):boolean {
+        public userVotedUp(postId: number, userId: string): boolean {
             const post = _.find(this.posts, x => x.Id === postId);
             return post.Votes.filter(vote => vote.UserId === userId).length > 0;
         }
 
-        public dateAgo(date:string) {
+        public dateAgo(date: string) {
             return Utils.DateUtils.dateAgo(new Date(date));
         }
 

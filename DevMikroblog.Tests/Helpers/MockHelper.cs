@@ -118,6 +118,7 @@ namespace DevMikroblog.Tests.Helpers
                     authorName =>
                         Result<List<Post>>.WarningWhenNoData(
                             Generator.Posts.Where(post => post.AuthorName == authorName).ToList()));
+            result.Setup(x => x.UpdateWithTags(It.IsAny<Post>())).Returns<Post>((post) => Result<bool>.WarningWhenNoData(Generator.Posts.SingleOrDefault(x => x.Id == post.Id) != null));
             return result;
         }
 
@@ -138,7 +139,7 @@ namespace DevMikroblog.Tests.Helpers
             result.Setup(x => x.GetPostById(It.IsAny<long>())).Returns<long>(id => Result<Post>.WarningWhenNoData(Generator.Posts.SingleOrDefault(post => post.Id == id)));
             result.Setup(x => x.DeletePost(It.IsAny<long>(), It.IsAny<string>())).Returns<long, string>((id, userId) => Result<bool>.WarningWhenNoData(Generator.Posts.SingleOrDefault(x => x.Id == id && x.AuthorId == userId) != null));
             result.Setup(x => x.GetPostByTagName(It.IsAny<string>())).Returns<string>(tagName => Result<List<Post>>.WarningWhenNoData(Generator.Posts.Where(post => post.Tags.Any(tag => tag.Name == tagName)).ToList()));
-            result.Setup(x => x.GetPostByAuthorName(It.IsAny<string>())).Returns<string>(authorName => Result<List<Post>>.WarningWhenNoData( Generator.Posts.Where(post => post.AuthorName == authorName).ToList()));
+            result.Setup(x => x.GetPostByAuthorName(It.IsAny<string>())).Returns<string>(authorName => Result<List<Post>>.WarningWhenNoData(Generator.Posts.Where(post => post.AuthorName == authorName).ToList()));
             return result;
         }
 

@@ -10,5 +10,6 @@
     export const getByAuthorNameUrl = (authorName: string) => `api/Post?authorName=${authorName}`;
     export const addCommentUrl = "/api/Comment";
     export const getPostByIdUrl = (postId: number) => `/api/Post/${postId}`;
-    export const deleteCommentUrl = (commentId:number) => `/api/Comment/${commentId}`;
+    export const deleteCommentUrl = (commentId: number) => `/api/Comment/${commentId}`;
+    export const updatePostUrl = "api/Post";
 }

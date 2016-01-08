@@ -1,4 +1,27 @@
-﻿<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+﻿
+<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+<div class="container" ng-show="$root.isLogged && cc.isOwner() && cc.toUpdate">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget-area no-padding blank">
+                <div class="status-upload">
+                    <form>
+                        <textarea placeholder="Dodaj wpis" ng-model="cc.postToUpdate.Message" required></textarea>
+                        <ul>
+                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
+                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
+                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>
+                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>
+                        </ul>
+                        <button type="submit" class="btn btn-success green" ng-click="cc.edit()"><i class="fa fa-share"></i> Edytuj</button>
+                    </form>
+                </div><!-- Status Upload  -->
+            </div><!-- Widget Area -->
+        </div>
+
+    </div>
+</div>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 <div class="container">
     <div class="col-sm-12">
         <div class="panel panel-white post panel-shadow">
@@ -15,13 +38,16 @@
                 </div>
             </div>
             <div class="post-description">
-                <p>{{cc.post.Message}}</p>
+                <p ng-bind-html="cc.post.Message"></p>
                 <div class="stats">
                     <a href="#" class="btn btn-default stat-item">
                         <i class="fa fa-thumbs-up icon"></i>{{cc.post.Rate}}
                     </a>
                     <a class="btn btn-default stat-item">
                         <i class="glyphicon glyphicon-comment icon"></i>{{cc.comments.length}}
+                    </a>
+                    <a class="btn btn-default stat-item" ng-show="cc.isOwner()" ng-click="cc.isEdited()">
+                        <i class="glyphicon glyphicon-edit icon"></i> Edytuj
                     </a>
                 </div>
             </div>

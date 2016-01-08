@@ -20,6 +20,19 @@
         public Comments: Comment[];
     }
 
+    export class PostToUpdate {
+
+        public Id: number;
+        public Title: string;
+        public Message: string;
+
+        constructor(id?: number, title?: string, message?: string) {
+            this.Id = id;
+            this.Title = title;
+            this.Message = message;
+        }
+    }
+
     export class Comment {
         public Id: number;
         public Message: string;
@@ -51,7 +64,7 @@
     }
 
     export class PostToAdd {
-        public Title: string;
+        public Title: string = "";
         public Message: string;
     }
 

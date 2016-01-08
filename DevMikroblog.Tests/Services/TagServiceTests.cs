@@ -20,6 +20,7 @@ namespace DevMikroblog.Tests.Services
         private TagService _tagService;
         private Mock<ITagRepository> _tagRepository;
         private DataGenerator _generator;
+
         [OneTimeSetUp]
         public void Init()
         {

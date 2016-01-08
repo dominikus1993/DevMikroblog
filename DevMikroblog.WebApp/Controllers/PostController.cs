@@ -49,13 +49,18 @@ namespace DevMikroblog.WebApp.Controllers
         {
             var resultPost = new Post()
             {
-                AuthorId = User.Identity.GetUserId(),
-                AuthorName = User.Identity.GetUserName(),
+                Id = post.Id,
                 Message = post.Message,
                 Title = post.Title,
             };
-            var result = _postTagService.CreatePost(resultPost);
-            return _postTagService.GetPostById(result.Value.Id);
+
+            var result = _postTagService.UpdatePost(resultPost, User.Identity.GetUserId());
+
+            if (result.Value)
+            {
+                return _postTagService.GetPostById(post.Id);
+            }
+            return new Result<Post>();
         }
 
         [HttpDelete]

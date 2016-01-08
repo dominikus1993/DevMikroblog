@@ -10,6 +10,7 @@ namespace DevMikroblog.Domain.Repositories.Interface
     public interface IPostRepository : IRepository<Post>, ICrudable<Post, long>, IVotable<Post>
     {
         IQueryable<Post> Posts { get; }
+        bool UpdateWithTags(Post entity);
         List<Post> Read(string authorName);
     }
 }

@@ -4,6 +4,7 @@
         add(commentToAdd: Models.CommentToAdd, callback: (data: Models.Result<Models.Comment>) => void);
         getPostById(postId: number, callback: (data: Models.Result<Models.Post>) => void);
         delete(commentId: number, callback: (data: Models.Result<boolean>) => void);
+        update(postToUpdate: Models.PostToUpdate, callback: (result: Models.Result<Models.Post>) => void);
     }
 
     export class CommentService implements ICommentService {
@@ -42,6 +43,21 @@
                     "Authorization": token
                 }
             }).success((data: Models.Result<Models.Comment>) => {
+                console.log(data);
+                callback(data);
+            }).error(error => {
+                console.error(error);
+            });
+        }
+
+        public update(postToUpdate: Models.PostToUpdate, callback: (result: Models.Result<Models.Post>) => void) {
+            const token = `bearer ${Constants.getTokenValue()}`;
+
+            return this.http.put(Urls.updatePostUrl, postToUpdate, {
+                headers: {
+                    "Authorization": token
+                }
+            }).success((data: Models.Result<Models.Post>) => {
                 console.log(data);
                 callback(data);
             }).error(error => {

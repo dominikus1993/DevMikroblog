@@ -25,7 +25,7 @@ namespace DevMikroblog.Domain.Repositories.Implementation
 
         public bool Update(Tag tag)
         {
-            var tagToEdit = Context.Tags.Include(tag_ => tag_.Posts).SingleOrDefault(x => x.Name.ToLower() == tag.Name.ToLower());
+            var tagToEdit = Context.Tags.Include(tag_ => tag_.Posts).SingleOrDefault(x => x.Name == tag.Name);
 
             if (tagToEdit != null)
             {

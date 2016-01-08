@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DevMikroblog.Domain.DatabaseContext.Interface;
 using DevMikroblog.Domain.Model;
@@ -89,16 +90,31 @@ namespace DevMikroblog.Tests.Repositories
                 Author = _data.Users[0]
             };
 
-            var updateResult = _postRepository.Update(post);
+            bool updateResult = _postRepository.Update(post);
             Assert.IsTrue(updateResult);
         }
 
+        [Test]
+        public void UpdatePostAndDeleteTagsTest()
+        {
+            var post = new Post()
+            {
+                Id = 1,
+                Message = "Pozdro",
+                Title = "Pozdro",
+                AuthorId = "d1u2p3a",
+                Author = _data.Users[0]
+            };
+
+            bool updateResult = _postRepository.Update(post);
+            Assert.IsTrue(updateResult);
+        }
         [Test]
         public void QueryResult()
         {
             const int expectedId = 2;
             var result = _postRepository.Query(x => x.SingleOrDefault(post => post.Id == expectedId));
-            Assert.IsNotNull(result);
+            Assert.That(result, Is.Not.Null);
             Assert.AreEqual(expectedId, result.Id);
         }
 

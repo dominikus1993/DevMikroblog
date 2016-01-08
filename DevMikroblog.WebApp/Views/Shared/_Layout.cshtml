@@ -8,47 +8,48 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse" ng-controller="AccountController as account">
-                <ul class="nav navbar-nav">
-                    <li><a href="#!/">Home</a></li>
-                    <li><a href="#!/Tag/javascript">Javascript</a></li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new {area = ""}, null)</li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right" id="logOff">
-                    <li style="color: white;" ng-show="$root.isLogged"><a href="#">Witaj! <i>{{account.userName}}</i></a></li>
-                    <li><button class="btn btn-primary" ng-click="account.logout()" ng-show="$root.isLogged">Wyloguj się</button></li>
-                </ul>
-                <form class="navbar-form navbar-right" role="search" id="loginForm" ng-show="!$root.isLogged">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="loginData.UserName" placeholder="Username" required="" ng-model="account.loginData.UserName">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="loginData.Password" placeholder="Password" required ng-model="account.loginData.Password">
-                    </div>
-                    <button type="submit" class="btn btn-primary" ng-click="account.login()">Zaloguj się</button>
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#register">Zarejestruj się</button>
-                </form>
-            </div>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Application name", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
+        </div>
+        <div class="navbar-collapse collapse" ng-controller="AccountController as account">
+            <ul class="nav navbar-nav">
+                <li><a href="#!/">Home</a></li>
+                <li><a href="#!/Tag/javascript">Javascript</a></li>
+                <li>@Html.ActionLink("API", "Index", "Help", new {area = ""}, null)</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" id="logOff">
+                <li style="color: white;" ng-show="$root.isLogged"><a href="#">Witaj! <i>{{account.userName}}</i></a></li>
+                <li><button class="btn btn-primary" ng-click="account.logout()" ng-show="$root.isLogged">Wyloguj się</button></li>
+            </ul>
+            <form class="navbar-form navbar-right" role="search" id="loginForm" ng-show="!$root.isLogged">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="loginData.UserName" placeholder="Username" required="" ng-model="account.loginData.UserName">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="loginData.Password" placeholder="Password" required ng-model="account.loginData.Password">
+                </div>
+                <button type="submit" class="btn btn-primary" ng-click="account.login()">Zaloguj się</button>
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#register">Zarejestruj się</button>
+            </form>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+</div>
 
-    </div>
+<div class="container body-content">
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+
+</div>
     <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="AccountController as account">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -80,6 +81,7 @@
     <script src="~/Scripts/underscore.js"></script>
     <script src="~/Scripts/angular.js"></script>
     <script src="~/Scripts/angular-messages.js"></script>
+    <script src="~/Scripts/angular-sanitize.js"></script>
     <script src="~/Scripts/angular-route.js"></script>
     <script src="~/Scripts/app/apiUrls.js"></script>
     <script src="~/Scripts/app/constants.js"></script>
