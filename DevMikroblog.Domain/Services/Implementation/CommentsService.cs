@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using DevMikroblog.Domain.Model;
@@ -36,6 +37,12 @@ namespace DevMikroblog.Domain.Services.Implementation
         public Result<Comment> Read(long id)
         {
             return Result<Comment>.WarningWhenNoData(_commentsRepository.Read(id));
+        }
+
+        public Result<List<Comment>> GetByPost(long postId)
+        {
+            var queryResult = _commentsRepository.GetByPost(postId);
+            return Result<List<Comment>>.WarningWhenNoData(queryResult);
         }
 
         public Result<bool> Update(Comment comment)

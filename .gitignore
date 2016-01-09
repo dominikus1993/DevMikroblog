@@ -223,4 +223,5 @@ ModelManifest.xml
 /DevMikroblog.WebApp/Scripts/app/accountController.js
 /DevMikroblog.WebApp/Scripts/app/accountController.js.map
 /DevMikroblog.WebApp/Scripts/app/accountService.js
-
+*.map
+*.js

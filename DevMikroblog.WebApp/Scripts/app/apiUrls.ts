@@ -6,10 +6,13 @@
     export const deletePostUrl = "api/Post";
     export const postVoteUpUrl = (postId: number) => `api/vote/post/${postId}/voteup`;
     export const postVoteDownUrl = (postId: number) => `api/vote/post/${postId}/votedown`;
+    export const commentVoteUpUrl = (commentId: number) => `api/vote/comment/${commentId}/voteup`;
+    export const commentVoteDownUrl = (commentId: number) => `api/vote/comment/${commentId}/votedown`;
     export const getByTagNameUrl = (tagName: string) => `api/Post?tagName=${tagName}`;
     export const getByAuthorNameUrl = (authorName: string) => `api/Post?authorName=${authorName}`;
     export const addCommentUrl = "/api/Comment";
     export const getPostByIdUrl = (postId: number) => `/api/Post/${postId}`;
     export const deleteCommentUrl = (commentId: number) => `/api/Comment/${commentId}`;
     export const updatePostUrl = "api/Post";
+    export const getCommentsByPost = (postId: number) => `api/Comment?postId=${postId}`;
 }

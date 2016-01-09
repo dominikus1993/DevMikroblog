@@ -7,6 +7,7 @@ namespace DevMikroblog.Domain.Services.Interface
     {
         Result<List<Comment>> Comments { get; }
         Result<Comment> Read(long id);
+        Result<List<Comment>> GetByPost(long postId);
         Result<bool> Update(Comment comment);
         Result<Comment> Create(Comment comment);
         Result<bool> Delete(long id);

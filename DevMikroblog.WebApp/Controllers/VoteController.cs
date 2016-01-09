@@ -9,10 +9,12 @@ namespace DevMikroblog.WebApp.Controllers
     public class VoteController : ApiController
     {
         private readonly IPostService _postService;
+        private readonly ICommentsService _commentsService;
 
-        public VoteController(IPostService postService)
+        public VoteController(IPostService postService, ICommentsService commentsService)
         {
             _postService = postService;
+            _commentsService = commentsService;
         }
 
         [HttpGet]
@@ -30,6 +32,22 @@ namespace DevMikroblog.WebApp.Controllers
         public Result<Post> PostVoteDown(long postId)
         {
             return _postService.VoteUp(postId, User.Identity.GetUserId());
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("comment/{commentId}/voteup")]
+        public Result<Comment> CommentVoteUp(long commentId)
+        {
+            return _commentsService.VoteUp(commentId, User.Identity.GetUserId());
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("comment/{commentId}/votedown")]
+        public Result<Comment> CommentVoteDown(long commentId)
+        {
+            return _commentsService.VoteUp(commentId, User.Identity.GetUserId());
         }
     }
 }

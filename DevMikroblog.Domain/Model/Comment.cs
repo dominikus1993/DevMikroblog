@@ -33,6 +33,7 @@ namespace DevMikroblog.Domain.Model
 
         public Post Post { get; set; }
 
+        [DataMember]
         public ICollection<Vote> Votes { get; set; } = new List<Vote>();
     }
 }

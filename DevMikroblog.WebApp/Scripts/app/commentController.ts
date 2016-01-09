@@ -27,7 +27,12 @@ module Application.Controllers {
                 if (result.IsSuccess) {
                     result.Value.Message = Utils.TagUtils.parseTag(result.Value.Message);
                     this.post = result.Value;
-                    this.comments = result.Value.Comments;
+
+                    this.service.getPostComments(result.Value.Id, (data) => {
+                        if (data.IsSuccess) {
+                            this.comments = data.Value;
+                        }
+                    });
                 }
             });
         }
@@ -72,6 +77,39 @@ module Application.Controllers {
             const userName = Constants.getAccountValue();
             if (userName && this.post) {
                 return userName === this.post.AuthorName;
+            }
+            return false;
+        }
+
+        public voteUp(commentId: number) {
+            this.service.voteUp(commentId, (result) => {
+                if (result.IsSuccess) {
+                    this.comments = this.comments.map(comment => {
+                        if (result.Value.Id === comment.Id) {
+                            return result.Value;
+                        }
+                        return comment;
+                    });
+                }
+            });
+        }
+
+        public postVoteUp() {
+            this.service.postVoteUp(this.post.Id, (result) => {
+                if (result.IsSuccess) {
+                    this.post = result.Value;
+                }
+            });
+        }
+
+        public commentsVotedUp(postId: number, userId: string): boolean {
+            const comment = _.find(this.comments, x => x.Id === postId);
+            return comment.Votes.filter(vote => vote.UserId === userId).length > 0;
+        }
+
+        public postVotedUp(): boolean {
+            if (this.post) {
+                return this.post.Votes.filter(vote => vote.UserId === this.post.AuthorId).length > 0;
             }
             return false;
         }

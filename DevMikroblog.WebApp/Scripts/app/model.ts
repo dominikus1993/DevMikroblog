@@ -40,6 +40,7 @@
         public Rate: number;
         public AuthorName: string;
         public AuthorId;
+        public Votes: Vote[];
     }
 
     export class CommentToAdd {

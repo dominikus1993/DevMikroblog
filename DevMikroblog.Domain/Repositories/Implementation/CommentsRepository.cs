@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,13 @@ namespace DevMikroblog.Domain.Repositories.Implementation
 
         public Comment Read(long id)
         {
-            return Context.Comments.SingleOrDefault(comment => comment.Id == id);
+            return Context.Comments.Include(comment => comment.Votes).SingleOrDefault(comment => comment.Id == id);
+        }
+
+        public List<Comment> GetByPost(long postId)
+        {
+            return
+                Context.Comments.Include(comment => comment.Votes).Where(comment => comment.PostId == postId).ToList();
         }
 
         public bool Update(Comment entity)
@@ -48,6 +55,8 @@ namespace DevMikroblog.Domain.Repositories.Implementation
 
             if (comment != null)
             {
+                var votes = Context.Votes.Where(vote => vote.CommentId == id);
+                Context.Votes.RemoveRange(votes);
                 Context.Comments.Remove(comment);
                 return true;
             }
@@ -57,15 +66,24 @@ namespace DevMikroblog.Domain.Repositories.Implementation
 
         public Comment Vote(long id, Vote vote, Func<long, long> downOrUpFunc)
         {
-            var comment = Context.Comments.SingleOrDefault(x => x.Id == id);
-
-            if (comment != null)
+            var query = Context.Comments.Include(comment => comment.Votes).SingleOrDefault(post => post.Id == id);
+            var userHasVote = query?.Votes.SingleOrDefault(x => x.CommentId == vote.CommentId && x.UserId == vote.UserId);
+            if (query != null && userHasVote == null)
             {
-                comment.Votes.Add(vote);
-                comment.Rate = downOrUpFunc(comment.Rate);
+                query.Votes.Add(vote);
+                query.Rate = downOrUpFunc(query.Rate);
                 Context.Votes.Add(vote);
-                return comment;
+                return query;
             }
+            if (query != null && userHasVote.UserVote != vote.UserVote)
+            {
+                Context.Votes.Remove(userHasVote);
+                query.Votes.Add(vote);
+                query.Rate = downOrUpFunc(query.Rate) + ((-1) * downOrUpFunc(query.Rate));
+                Context.Votes.Add(vote);
+                return query;
+            }
+
             return null;
         }
 

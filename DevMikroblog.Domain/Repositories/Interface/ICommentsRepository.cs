@@ -8,5 +8,6 @@ namespace DevMikroblog.Domain.Repositories.Interface
     {
         IQueryable<Comment> Comments { get; }
         List<Comment> GetCommentsByPostId(long postId);
+        List<Comment> GetByPost(long postId);
     }
 }

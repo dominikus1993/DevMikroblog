@@ -179,5 +179,21 @@ namespace DevMikroblog.Tests.Repositories
             Assert.IsNotNull(result);
             Assert.IsEmpty(result);
         }
+
+        [Test]
+        public void GetByPostId()
+        {
+            const int postId = 1;
+            var result = _commentsRepository.GetCommentsByPostId(postId);
+            Assert.IsNotEmpty(result);
+        }
+
+        [Test]
+        public void GetByPostIvalidId()
+        {
+            const int postId = 111111;
+            var result = _commentsRepository.GetCommentsByPostId(postId);
+            Assert.IsEmpty(result);
+        }
     }
 }

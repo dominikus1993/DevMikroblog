@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Web.Http;
 using DevMikroblog.Domain.Model;
 using DevMikroblog.Domain.Services.Interface;
 using DevMikroblog.WebApp.Models;
@@ -13,6 +14,12 @@ namespace DevMikroblog.WebApp.Controllers
         public CommentController(ICommentsService commentsService)
         {
             _commentsService = commentsService;
+        }
+
+        [HttpGet]
+        public Result<List<Comment>> GetByPost(long postId)
+        {
+            return _commentsService.GetByPost(postId);
         }
 
         [Authorize]
