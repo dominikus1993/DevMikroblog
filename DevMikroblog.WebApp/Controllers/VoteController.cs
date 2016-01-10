@@ -22,7 +22,14 @@ namespace DevMikroblog.WebApp.Controllers
         [Route("post/{postId}/voteup")]
         public Result<Post> PostVoteUp(long postId)
         {
-            return _postService.VoteUp(postId, User.Identity.GetUserId());
+            var vote = new Vote()
+            {
+                PostId = postId,
+                UserId = User.Identity.GetUserId(),
+                UserName = User.Identity.GetUserName(),
+                UserVote = UserVote.VoteUp
+            };
+            return _postService.VoteUp(vote);
         }
 
 
@@ -31,7 +38,14 @@ namespace DevMikroblog.WebApp.Controllers
         [Route("post/{postId}/votedown")]
         public Result<Post> PostVoteDown(long postId)
         {
-            return _postService.VoteUp(postId, User.Identity.GetUserId());
+            var vote = new Vote()
+            {
+                PostId = postId,
+                UserId = User.Identity.GetUserId(),
+                UserName = User.Identity.GetUserName(),
+                UserVote = UserVote.VoteDown
+            };
+            return _postService.VoteUp(vote);
         }
 
         [HttpGet]
@@ -39,7 +53,14 @@ namespace DevMikroblog.WebApp.Controllers
         [Route("comment/{commentId}/voteup")]
         public Result<Comment> CommentVoteUp(long commentId)
         {
-            return _commentsService.VoteUp(commentId, User.Identity.GetUserId());
+            var vote = new Vote()
+            {
+                CommentId = commentId,
+                UserId = User.Identity.GetUserId(),
+                UserName = User.Identity.GetUserName(),
+                UserVote = UserVote.VoteUp
+            };
+            return _commentsService.VoteUp(vote);
         }
 
         [HttpGet]
@@ -47,7 +68,14 @@ namespace DevMikroblog.WebApp.Controllers
         [Route("comment/{commentId}/votedown")]
         public Result<Comment> CommentVoteDown(long commentId)
         {
-            return _commentsService.VoteUp(commentId, User.Identity.GetUserId());
+            var vote = new Vote()
+            {
+                CommentId = commentId,
+                UserId = User.Identity.GetUserId(),
+                UserName = User.Identity.GetUserName(),
+                UserVote = UserVote.VoteDown
+            };
+            return _commentsService.VoteUp(vote);
         }
     }
 }

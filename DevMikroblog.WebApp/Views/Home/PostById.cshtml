@@ -63,7 +63,7 @@
                         <a class="pull-left" href="#!/Author/{{comment.AuthorName}}">
                             <img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" alt="avatar">
                         </a>
-                        <a href="" class="pull-right btn btn-default stat-item" ng-click="(cc.commentsVotedUp(comment.Id, comment.AuthorId) || !$root.isLogged) || cc.voteUp(comment.Id)" ng-disabled="(cc.commentsVotedUp(comment.Id, comment.AuthorId) || !$root.isLogged)" >
+                        <a href="" class="pull-right btn btn-default stat-item" ng-click="(cc.commentsVotedUp(comment.Id, comment.AuthorId) || !$root.isLogged) || cc.voteUp(comment.Id)" ng-disabled="(cc.commentsVotedUp(comment.Id) || !$root.isLogged)" >
                             <i class="fa fa-thumbs-up icon"></i> {{comment.Rate}}
                         </a>
                         <div class="comment-body">

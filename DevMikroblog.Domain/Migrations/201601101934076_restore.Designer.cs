@@ -13,7 +13,7 @@ namespace DevMikroblog.Domain.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201601052232232_restore"; }
+            get { return "201601101934076_restore"; }
         }
         
         string IMigrationMetadata.Source

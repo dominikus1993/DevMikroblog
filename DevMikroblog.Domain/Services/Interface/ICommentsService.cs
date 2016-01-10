@@ -11,7 +11,7 @@ namespace DevMikroblog.Domain.Services.Interface
         Result<bool> Update(Comment comment);
         Result<Comment> Create(Comment comment);
         Result<bool> Delete(long id);
-        Result<Comment> VoteUp(long id, string userId);
-        Result<Comment> VoteDown(long id, string userId);
+        Result<Comment> VoteUp(Vote vote);
+        Result<Comment> VoteDown(Vote vote);
     }
 }

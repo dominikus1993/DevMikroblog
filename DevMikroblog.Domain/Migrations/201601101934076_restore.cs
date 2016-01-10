@@ -117,6 +117,7 @@ namespace DevMikroblog.Domain.Migrations
                         UserVote = c.Int(nullable: false),
                         PostId = c.Long(),
                         UserId = c.String(maxLength: 128),
+                        UserName = c.String(),
                         CommentId = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)

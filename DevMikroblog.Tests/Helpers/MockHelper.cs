@@ -103,16 +103,12 @@ namespace DevMikroblog.Tests.Helpers
                 .Returns<long>(id => Result<Post>.WarningWhenNoData(Generator.Posts.SingleOrDefault(post => post.Id == id)));
             result.Setup(x => x.Create(It.IsAny<Post>())).Returns<Post>(x => Result<Post>.WarningWhenNoData(x));
             result.Setup(x => x.Delete(It.IsAny<long>())).Returns<long>(id => Result<bool>.WarningWhenNoData(Generator.Posts.Any(post => post.Id == id)));
-            result.Setup(x => x.VoteUp(It.IsAny<long>(), It.IsAny<string>()))
-                .Returns<long, string>(
-                    (id, userId) =>
+            result.Setup(x => x.VoteUp(It.IsAny<Vote>())).Returns<Vote>((vote) => Result<Post>.WarningWhenNoData(Generator.Posts.SingleOrDefault(x => x.Id == vote.PostId)));
+            result.Setup(x => x.VoteDown(It.IsAny<Vote>()))
+                .Returns<Vote>(
+                    (vote) =>
                         Result<Post>.WarningWhenNoData(
-                            Generator.Posts.SingleOrDefault(x => x.Id == id)));
-            result.Setup(x => x.VoteDown(It.IsAny<long>(), It.IsAny<string>()))
-                .Returns<long, string>(
-                    (id, userId) =>
-                        Result<Post>.WarningWhenNoData(
-                            Generator.Posts.SingleOrDefault(x => x.Id == id)));
+                            Generator.Posts.SingleOrDefault(x => x.Id == vote.PostId)));
             result.Setup(x => x.Read(It.IsAny<string>()))
                 .Returns<string>(
                     authorName =>
@@ -149,16 +145,16 @@ namespace DevMikroblog.Tests.Helpers
             result.Setup(x => x.Create(It.IsAny<Comment>())).Returns<Comment>(comment => Result<Comment>.WarningWhenNoData(comment));
             result.Setup(x => x.Delete(It.IsAny<long>())).Returns<long>(id => Result<bool>.WarningWhenNoData(Generator.Comments.SingleOrDefault(comment => comment.Id == id) != null));
             result.Setup(x => x.Read(It.IsAny<long>())).Returns<long>(id => Result<Comment>.WarningWhenNoData(Generator.Comments.SingleOrDefault(comment => comment.Id == id)));
-            result.Setup(x => x.VoteUp(It.IsAny<long>(), It.IsAny<string>()))
-              .Returns<long, string>(
-                  (id, userId) =>
+            result.Setup(x => x.VoteUp(It.IsAny<Vote>()))
+              .Returns<Vote>(
+                  (vote) =>
                       Result<Comment>.WarningWhenNoData(
-                          Generator.Comments.SingleOrDefault(x => x.Id == id)));
-            result.Setup(x => x.VoteDown(It.IsAny<long>(), It.IsAny<string>()))
-                .Returns<long, string>(
-                    (id, userId) =>
-                        Result<Comment>.WarningWhenNoData(
-                            Generator.Comments.SingleOrDefault(x => x.Id == id)));
+                          Generator.Comments.SingleOrDefault(x => x.Id == vote.CommentId)));
+            result.Setup(x => x.VoteDown(It.IsAny<Vote>()))
+               .Returns<Vote>(
+                   (vote) =>
+                       Result<Comment>.WarningWhenNoData(
+                           Generator.Comments.SingleOrDefault(x => x.Id == vote.CommentId)));
             return result;
         }
 

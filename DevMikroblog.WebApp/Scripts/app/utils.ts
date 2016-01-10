@@ -80,4 +80,11 @@
             return text.replace(tagRegEx, "<a href='#!/Tag/$2'>$1$2</a>");
         }
     }
+
+    export class HtmlUtils {
+        static stripHtml(text: string) {
+            const regex = /(<([^>]+)>)/ig;
+            return text.replace(regex, "");
+        }
+    }
 }

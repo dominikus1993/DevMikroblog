@@ -7,6 +7,7 @@ namespace DevMikroblog.Domain.Model
     {
         [DataMember]
         public long Id { get; set; }
+
         [DataMember]
         public UserVote UserVote { get; set; }
 
@@ -14,6 +15,9 @@ namespace DevMikroblog.Domain.Model
 
         [DataMember]
         public string UserId { get; set; }
+
+        [DataMember]
+        public string UserName { get; set; }
 
         public long? CommentId { get; set; }
 

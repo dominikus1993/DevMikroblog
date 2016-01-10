@@ -69,7 +69,7 @@ module Application.Controllers {
         }
 
         public isEdited() {
-            this.postToUpdate = new Models.PostToUpdate(this.post.Id, this.post.Title, this.post.Message);
+            this.postToUpdate = new Models.PostToUpdate(this.post.Id, this.post.Title, Utils.HtmlUtils.stripHtml(this.post.Message));
             this.toUpdate = !this.toUpdate;
         }
 
@@ -102,14 +102,14 @@ module Application.Controllers {
             });
         }
 
-        public commentsVotedUp(postId: number, userId: string): boolean {
+        public commentsVotedUp(postId: number): boolean {
             const comment = _.find(this.comments, x => x.Id === postId);
-            return comment.Votes.filter(vote => vote.UserId === userId).length > 0;
+            return comment.Votes.filter(vote => vote.UserName === Constants.getAccountValue()).length > 0;
         }
 
         public postVotedUp(): boolean {
             if (this.post) {
-                return this.post.Votes.filter(vote => vote.UserId === this.post.AuthorId).length > 0;
+                return this.post.Votes.filter(vote => vote.UserName === Constants.getAccountValue()).length > 0;
             }
             return false;
         }

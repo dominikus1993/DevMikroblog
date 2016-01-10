@@ -90,7 +90,13 @@ namespace DevMikroblog.Tests.Services
         {
             const int id = 1;
             string userId = _data.Users.First().Id;
-            var result = _service.VoteUp(id, userId);
+            var vote = new Vote()
+            {
+                PostId = id,
+                UserId = userId
+            };
+
+            var result = _service.VoteUp(vote);
             Assert.IsTrue(result.IsSuccess);
             Assert.IsNotNull(result.Value);
         }
@@ -100,7 +106,14 @@ namespace DevMikroblog.Tests.Services
         {
             const int id = 111;
             string userId = _data.Users.First().Id;
-            var result = _service.VoteDown(id, userId);
+
+            var vote = new Vote()
+            {
+                PostId = id,
+                UserId = userId
+            };
+
+            var result = _service.VoteDown(vote);
             Assert.IsTrue(result.IsWarning);
             Assert.IsNull(result.Value);
         }
@@ -110,7 +123,14 @@ namespace DevMikroblog.Tests.Services
         {
             const int id = 1;
             string userId = _data.Users.First().Id;
-            var result = _service.VoteDown(id, userId);
+
+            var vote = new Vote()
+            {
+                PostId = id,
+                UserId = userId
+            };
+
+            var result = _service.VoteDown(vote);
             Assert.IsTrue(result.IsSuccess);
             Assert.IsNotNull(result.Value);
         }

@@ -41,7 +41,7 @@
             <div class="post-description">
                 <p ng-bind-html="post.Message"></p>
                 <div class="stats">
-                    <a href="" class="btn btn-default stat-item" ng-click="(pc.userVotedUp(post.Id, post.AuthorId) || !$root.isLogged) || pc.voteUp(post.Id)" ng-disabled="(pc.userVotedUp(post.Id, post.AuthorId) || !$root.isLogged)">
+                    <a href="" class="btn btn-default stat-item" ng-click="(pc.userVotedUp(post.Id, post.AuthorId) || !$root.isLogged) || pc.voteUp(post.Id)" ng-disabled="(pc.userVotedUp(post.Id) || !$root.isLogged)">
                         <i class="fa fa-thumbs-up icon"></i>{{post.Rate}}
                     </a>
                     <a href="#!/Post/{{post.Id}}" class="btn btn-default stat-item">

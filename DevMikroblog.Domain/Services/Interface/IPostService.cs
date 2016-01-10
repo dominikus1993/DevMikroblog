@@ -12,8 +12,8 @@ namespace DevMikroblog.Domain.Services.Interface
         Result<bool> UpdateWithTags(Post post);
         Result<Post> Create(Post post);
         Result<bool> Delete(long id);
-        Result<Post> VoteUp(long id, string userId);
-        Result<Post> VoteDown(long id, string userId);
+        Result<Post> VoteUp(Vote vote);
+        Result<Post> VoteDown(Vote vote);
         Result<List<Post>> GetPostsByUser(string userId);
         Result<List<Post>> Read(string authorName);
     }

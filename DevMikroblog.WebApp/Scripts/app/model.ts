@@ -57,6 +57,7 @@
         public Id: number;
         public UserVote: UserVote;
         public UserId: string;
+        public UserName:string;
     }
 
     export class Tag {

@@ -66,28 +66,28 @@ namespace DevMikroblog.Domain.Services.Implementation
             return Result<bool>.WarningWhenNoData(queryResult);
         }
 
-        public Result<Comment> VoteUp(long id, string userId)
+        public Result<Comment> VoteUp(Vote vote)
         {
-            var vote = new Vote()
+            if(vote.CommentId.HasValue)
             {
-                CommentId = id,
-                UserId = userId,
-                UserVote = UserVote.VoteUp
-            };
-            var queryResult = _commentsRepository.Vote(id, vote, rate => rate + 1);
-            return Result<Comment>.WarningWhenNoData(queryResult);
+                var queryResult = _commentsRepository.Vote(vote.CommentId.Value, vote, rate => rate + 1);
+                _commentsRepository.SaveChanges();
+                return Result<Comment>.WarningWhenNoData(queryResult);
+            }
+
+            return new Result<Comment>();
         }
 
-        public Result<Comment> VoteDown(long id, string userId)
+        public Result<Comment> VoteDown(Vote vote)
         {
-            var vote = new Vote()
+            if (vote.CommentId.HasValue)
             {
-                CommentId = id,
-                UserId = userId,
-                UserVote = UserVote.VoteDown
-            };
-            var queryResult = _commentsRepository.Vote(id, vote, rate => rate - 1);
-            return Result<Comment>.WarningWhenNoData(queryResult);
+                var queryResult = _commentsRepository.Vote(vote.CommentId.Value, vote, rate => rate - 1);
+                _commentsRepository.SaveChanges();
+                return Result<Comment>.WarningWhenNoData(queryResult);
+            }
+
+            return new Result<Comment>();
         }
     }
 }
